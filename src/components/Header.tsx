@@ -321,7 +321,7 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             {/* Logo Image Only (logo.jpeg), no text */}
-            <a href="#" className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#C7A13A] overflow-hidden bg-white shrink-0 block shadow-md transition-transform duration-300 hover:scale-105">
+            <a href="#" className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full border-2 border-[#C7A13A] overflow-hidden bg-white shrink-0 block shadow-md transition-transform duration-300 hover:scale-105">
               <Image src="/logo.jpeg" alt="Logo" fill priority className="object-cover" />
             </a>
           </div>
@@ -452,13 +452,13 @@ export const Header: React.FC<HeaderProps> = ({
       {/* ========================================================================= */}
       {/* DESKTOP NAVBAR LAYOUT (hidden lg:flex) - World-Class Luxury 1-Row Header  */}
       {/* ========================================================================= */}
-      <div className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5">
+      <div className="hidden lg:block max-w-[98%] xl:max-w-7xl mx-auto px-2 sm:px-4 lg:px-4 py-2">
         <div className="flex items-center justify-between gap-4 lg:gap-8">
-          {/* Left: Perfectly Proportioned Logo Image */}
+          {/* Left: Prominent Left-Corner Logo Image */}
           <div className="flex items-center shrink-0">
             <a
               href="#"
-              className="relative w-12 h-12 lg:w-14 lg:h-14 rounded-full border-2 border-[#C7A13A] gold-glow overflow-hidden bg-white shrink-0 block transition-transform duration-300 hover:scale-105 shadow-sm"
+              className="relative w-16 h-16 lg:w-18 lg:h-18 rounded-full border-2 border-[#C7A13A] gold-glow overflow-hidden bg-white shrink-0 block transition-transform duration-300 hover:scale-105 shadow-md"
               title="Emirates Gold International"
             >
               <Image src="/logo.jpeg" alt="Emirates Gold Logo" fill priority className="object-cover" />
