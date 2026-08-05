@@ -30,15 +30,15 @@ export const QuickActionsPopup: React.FC<QuickActionsPopupProps> = ({
 
   if (!isVisible) return null;
 
-  // Minimized Trigger Pill safely positioned on the right screen above WhatsApp!
+  // Minimized Pill (Sleek Light Mode Floating Trigger on Bottom-Left)
   if (minimized) {
     return (
       <button
         onClick={() => setMinimized(false)}
-        className="fixed bottom-20 right-6 sm:bottom-6 sm:right-20 z-40 bg-[#0F0E0C]/95 backdrop-blur-md text-[#C7A13A] border border-[#C7A13A]/50 px-4 py-2.5 rounded-full shadow-2xl hover:bg-[#C7A13A] hover:text-[#0F0E0C] transition-all duration-300 flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider gold-glow animate-fade-in"
+        className="fixed bottom-6 left-4 sm:left-6 z-40 bg-white border border-[#C7A13A]/60 text-[#1C1C1C] px-4 py-2.5 rounded-full shadow-xl hover:border-[#C7A13A] hover:bg-[#F7F4EF] transition-all duration-300 flex items-center space-x-2 text-xs font-serif font-bold tracking-wide animate-fade-in"
       >
         <Sparkles className="w-3.5 h-3.5 text-[#C7A13A]" />
-        <span>Quick Discover</span>
+        <span>Curated Selection</span>
       </button>
     );
   }
@@ -48,91 +48,91 @@ export const QuickActionsPopup: React.FC<QuickActionsPopupProps> = ({
   const currentProducts = activeTab === "bestsellers" ? bestSellers : newReleases;
 
   return (
-    <div className="fixed bottom-20 left-4 right-4 sm:left-auto sm:right-20 sm:bottom-6 z-40 max-w-[340px] w-full ml-auto animate-fade-in">
-      <div className="bg-[#0F0E0C]/95 backdrop-blur-xl border border-[#C7A13A]/40 rounded-2xl p-3.5 shadow-2xl text-white space-y-3 gold-glow">
+    <div className="fixed bottom-6 left-4 sm:left-6 z-40 max-w-[340px] w-full animate-fade-in">
+      <div className="bg-white/98 backdrop-blur-xl border border-[#E5DFD3] rounded-2xl p-4 shadow-2xl text-[#1C1C1C] space-y-3">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between pb-1 border-b border-gray-100">
           <div className="flex items-center space-x-2">
             <span className="w-2 h-2 rounded-full bg-[#C7A13A] animate-pulse" />
             <span className="text-[10px] tracking-widest uppercase font-bold text-[#C7A13A]">
-              Atelier Discovery
+              Atelier Curated
             </span>
           </div>
           <button
             onClick={() => setMinimized(true)}
-            className="p-1 text-gray-400 hover:text-white rounded-full transition"
+            className="p-1 text-gray-400 hover:text-black rounded-full hover:bg-gray-100 transition"
             title="Minimize"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Minimal Tab Switcher */}
-        <div className="flex bg-[#1A1815] p-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider border border-white/5">
+        {/* Clean Light Tab Switcher */}
+        <div className="flex bg-[#F7F4EF] p-1 rounded-full text-xs font-serif border border-[#E5DFD3]">
           <button
             onClick={() => setActiveTab("bestsellers")}
-            className={`flex-1 py-1 rounded-full flex items-center justify-center space-x-1 transition ${
+            className={`flex-1 py-1 rounded-full flex items-center justify-center space-x-1 transition cursor-pointer ${
               activeTab === "bestsellers"
-                ? "bg-[#C7A13A] text-[#0F0E0C] font-bold"
-                : "text-gray-400 hover:text-white"
+                ? "bg-white text-[#1C1C1C] font-bold shadow-xs border border-gray-200"
+                : "text-gray-500 hover:text-black"
             }`}
           >
-            <Flame className="w-3 h-3" />
+            <Flame className="w-3.5 h-3.5 text-[#C7A13A]" />
             <span>Bestsellers</span>
           </button>
           <button
             onClick={() => setActiveTab("new")}
-            className={`flex-1 py-1 rounded-full flex items-center justify-center space-x-1 transition ${
+            className={`flex-1 py-1 rounded-full flex items-center justify-center space-x-1 transition cursor-pointer ${
               activeTab === "new"
-                ? "bg-[#C7A13A] text-[#0F0E0C] font-bold"
-                : "text-gray-400 hover:text-white"
+                ? "bg-white text-[#1C1C1C] font-bold shadow-xs border border-gray-200"
+                : "text-gray-500 hover:text-black"
             }`}
           >
-            <Gem className="w-3 h-3" />
+            <Gem className="w-3.5 h-3.5 text-[#C7A13A]" />
             <span>New Releases</span>
           </button>
         </div>
 
         {/* Product Items */}
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           {currentProducts.map((prod) => (
             <div
               key={prod.id}
-              className="flex items-center justify-between bg-[#171512] p-2 rounded-xl border border-white/5 hover:border-[#C7A13A]/40 transition group"
+              className="flex items-center justify-between bg-[#FAFAF8] hover:bg-[#F4F1EA] p-2.5 rounded-xl border border-[#E5DFD3] transition group"
             >
-              <div className="flex items-center space-x-2.5 min-w-0 flex-1">
-                <div className="relative w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-black/40 border border-white/10">
+              <div className="flex items-center space-x-3 min-w-0 flex-1">
+                <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-white border border-gray-200 shadow-xs">
                   <Image
                     src={prod.imagePrimary}
                     alt={prod.name}
                     fill
-                    className="object-cover group-hover:scale-110 transition duration-300"
+                    className="object-cover group-hover:scale-105 transition duration-300"
                   />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <h5 className="font-serif font-semibold text-xs text-[#FAFAF8] truncate group-hover:text-[#C7A13A] transition-colors">
+                  <h5 className="font-serif font-bold text-xs text-[#1C1C1C] truncate group-hover:text-[#C7A13A] transition-colors">
                     {prod.name}
                   </h5>
-                  <span className="text-[10px] font-medium text-[#C7A13A] block">
+                  <span className="text-xs font-semibold text-[#C7A13A] block mt-0.5">
                     {currency === "AED" ? `AED ${prod.priceAED.toLocaleString()}` : `$${prod.priceUSD.toLocaleString()} USD`}
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-1 ml-2">
+              <div className="flex items-center space-x-1.5 ml-2">
                 <button
                   onClick={() => onQuickView(prod)}
-                  className="p-1.5 bg-white/10 hover:bg-[#C7A13A] hover:text-[#0F0E0C] text-white rounded-full transition"
+                  className="p-1.5 text-gray-600 hover:text-black hover:bg-gray-200 rounded-full transition"
                   title="Quick View"
                 >
-                  <Eye className="w-3.5 h-3.5" />
+                  <Eye className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => onAddToCart(prod)}
-                  className="p-1.5 bg-[#C7A13A] hover:bg-white text-[#0F0E0C] rounded-full transition font-bold"
+                  className="p-1.5 bg-[#1C1C1C] hover:bg-[#C7A13A] text-white rounded-full transition shadow-xs"
                   title="Add to Cart"
                 >
-                  <ShoppingBag className="w-3.5 h-3.5" />
+                  <ShoppingBag className="w-4 h-4" />
                 </button>
               </div>
             </div>

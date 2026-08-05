@@ -166,7 +166,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div>
           {/* Drawer Top Header: Logo Image Only */}
           <div className="flex items-center justify-between border-b border-[#E5DFD3] pb-4 mb-4">
-            <div className="relative w-11 h-11 rounded-full border border-[#C7A13A] overflow-hidden bg-white shadow-xs">
+            <div className="relative w-14 h-14 rounded-full border-2 border-[#C7A13A] overflow-hidden bg-white shadow-md shrink-0">
               <Image src="/logo.jpeg" alt="Logo" fill className="object-cover" />
             </div>
             <button
@@ -321,7 +321,7 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             {/* Logo Image Only (logo.jpeg), no text */}
-            <a href="#" className="relative w-10 h-10 rounded-full border border-[#C7A13A] overflow-hidden bg-white shrink-0 block shadow-xs">
+            <a href="#" className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#C7A13A] overflow-hidden bg-white shrink-0 block shadow-md transition-transform duration-300 hover:scale-105">
               <Image src="/logo.jpeg" alt="Logo" fill priority className="object-cover" />
             </a>
           </div>
@@ -450,46 +450,62 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* ========================================================================= */}
-      {/* DESKTOP NAVBAR LAYOUT (hidden lg:flex) - Clean 1-Row Professional Header */}
+      {/* DESKTOP NAVBAR LAYOUT (hidden lg:flex) - World-Class Luxury 1-Row Header  */}
       {/* ========================================================================= */}
-      <div className="hidden lg:block max-w-7xl mx-auto px-6 lg:px-8 py-3">
-        <div className="flex items-center justify-between">
-          {/* Left: Logo Image Only (logo.jpeg), no text */}
-          <div className="flex items-center">
-            <a href="#" className="relative w-12 h-12 rounded-full border-2 border-[#C7A13A] gold-glow overflow-hidden bg-white shrink-0 block transition-transform duration-300 hover:scale-105">
-              <Image src="/logo.jpeg" alt="Logo" fill priority className="object-cover" />
+      <div className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5">
+        <div className="flex items-center justify-between gap-4 lg:gap-8">
+          {/* Left: Perfectly Proportioned Logo Image */}
+          <div className="flex items-center shrink-0">
+            <a
+              href="#"
+              className="relative w-12 h-12 lg:w-14 lg:h-14 rounded-full border-2 border-[#C7A13A] gold-glow overflow-hidden bg-white shrink-0 block transition-transform duration-300 hover:scale-105 shadow-sm"
+              title="Emirates Gold International"
+            >
+              <Image src="/logo.jpeg" alt="Emirates Gold Logo" fill priority className="object-cover" />
             </a>
           </div>
 
-          {/* Center: Professional Desktop Navigation Links */}
-          <nav className="flex items-center space-x-8 text-xs uppercase tracking-[0.18em] font-semibold text-[#1C1C1C]">
-            <a href="#collections" className="hover:text-[#C7A13A] transition py-2 border-b-2 border-transparent hover:border-[#C7A13A]">
+          {/* Center: High-End Desktop Navigation Links with Precise Spacing */}
+          <nav className="flex items-center space-x-6 xl:space-x-9 text-[11px] xl:text-xs uppercase tracking-[0.22em] font-semibold text-[#1C1C1C] whitespace-nowrap">
+            <a
+              href="#collections"
+              className="hover:text-[#C7A13A] transition-colors py-2 border-b-2 border-transparent hover:border-[#C7A13A]"
+            >
               Collections
             </a>
             <button
               onMouseEnter={() => setMegaMenuOpen(true)}
               onClick={() => setMegaMenuOpen(!megaMenuOpen)}
-              className="hover:text-[#C7A13A] transition py-2 flex items-center border-b-2 border-transparent hover:border-[#C7A13A] cursor-pointer"
+              className="hover:text-[#C7A13A] transition-colors py-2 flex items-center border-b-2 border-transparent hover:border-[#C7A13A] cursor-pointer"
             >
               Category <ChevronDown className="w-3.5 h-3.5 ml-1 text-[#C7A13A]" />
             </button>
-            <a href="#bridal" className="hover:text-[#C7A13A] transition py-2 border-b-2 border-transparent hover:border-[#C7A13A]">
+            <a
+              href="#bridal"
+              className="hover:text-[#C7A13A] transition-colors py-2 border-b-2 border-transparent hover:border-[#C7A13A]"
+            >
               Bridal Couture
             </a>
-            <a href="#trending" className="hover:text-[#C7A13A] transition py-2 border-b-2 border-transparent hover:border-[#C7A13A]">
+            <a
+              href="#trending"
+              className="hover:text-[#C7A13A] transition-colors py-2 border-b-2 border-transparent hover:border-[#C7A13A]"
+            >
               Trending
             </a>
-            <a href="#why-us" className="hover:text-[#C7A13A] transition py-2 border-b-2 border-transparent hover:border-[#C7A13A]">
+            <a
+              href="#why-us"
+              className="hover:text-[#C7A13A] transition-colors py-2 border-b-2 border-transparent hover:border-[#C7A13A]"
+            >
               Craftsmanship
             </a>
           </nav>
 
-          {/* Right: Desktop Action Bar (Sleek Compact Search + Action Icons) */}
-          <div className="flex items-center space-x-4">
-            {/* Compact Desktop Search Input */}
-            <div ref={searchContainerRefDesktop} className="relative w-64">
-              <div className="relative flex items-center bg-[#FAFAF8] border border-gray-300 rounded-full px-3 py-1.5 focus-within:border-[#C7A13A] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#C7A13A]/20 transition-all">
-                <Search className="w-4 h-4 text-gray-400 mr-2 shrink-0" />
+          {/* Right: Desktop Action Bar (Sleek Expandable Search + Uniform Action Icons) */}
+          <div className="flex items-center space-x-3 xl:space-x-4 shrink-0">
+            {/* Compact Responsive Desktop Search Bar */}
+            <div ref={searchContainerRefDesktop} className="relative w-40 xl:w-56 transition-all duration-300">
+              <div className="relative flex items-center bg-[#F9F8F6] border border-[#E0DCD5] rounded-full px-3 py-1.5 focus-within:border-[#C7A13A] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#C7A13A]/20 transition-all shadow-2xs">
+                <Search className="w-4 h-4 text-gray-400 mr-2 shrink-0 stroke-[2]" />
                 <input
                   type="text"
                   value={searchQuery}
@@ -499,7 +515,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }}
                   onFocus={() => setIsSearchFocused(true)}
                   placeholder="Search jewellery..."
-                  className="w-full bg-transparent text-xs text-[#1C1C1C] placeholder-gray-400 focus:outline-none font-serif"
+                  className="w-full bg-transparent text-xs text-[#1C1C1C] placeholder-gray-400 focus:outline-none font-serif tracking-wide"
                 />
                 {searchQuery && (
                   <button onClick={() => setSearchQuery("")} className="p-0.5 text-gray-400 hover:text-black mr-1">
@@ -507,11 +523,11 @@ export const Header: React.FC<HeaderProps> = ({
                   </button>
                 )}
                 <div className="flex items-center space-x-1 pl-1.5 border-l border-gray-200 shrink-0">
-                  <button onClick={() => setImageSearchModal(true)} title="Camera Search" className="p-0.5 text-gray-500 hover:text-[#C7A13A]">
-                    <Camera className="w-3.5 h-3.5" />
+                  <button onClick={() => setImageSearchModal(true)} title="Camera Search" className="p-0.5 text-gray-500 hover:text-[#C7A13A] transition">
+                    <Camera className="w-3.5 h-3.5 stroke-[1.75]" />
                   </button>
                   <button onClick={handleVoiceSearch} title="Voice Search" className={`p-0.5 transition ${isListening ? "text-red-500 animate-pulse" : "text-gray-500 hover:text-[#C7A13A]"}`}>
-                    <Mic className="w-3.5 h-3.5" />
+                    <Mic className="w-3.5 h-3.5 stroke-[1.75]" />
                   </button>
                 </div>
               </div>
@@ -575,19 +591,19 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Desktop Store Locator Icon */}
             <button
               onClick={onOpenAppointment}
-              className="p-2 text-[#1C1C1C] hover:text-[#C7A13A] transition rounded-full hover:bg-gray-100"
+              className="p-2 text-[#1C1C1C] hover:text-[#C7A13A] hover:bg-[#F7F4EF] transition rounded-full"
               title="Store Locator & Appointments"
             >
-              <Store className="w-5.5 h-5.5 stroke-[1.75]" />
+              <Store className="w-5 h-5 stroke-[1.75]" />
             </button>
 
             {/* Desktop Wishlist Icon */}
             <button
               onClick={onOpenWishlist}
-              className="p-2 text-[#1C1C1C] hover:text-[#C7A13A] transition relative rounded-full hover:bg-gray-100"
+              className="p-2 text-[#1C1C1C] hover:text-[#C7A13A] hover:bg-[#F7F4EF] transition relative rounded-full"
               title="Saved Wishlist"
             >
-              <Heart className="w-5.5 h-5.5 stroke-[1.75]" />
+              <Heart className="w-5 h-5 stroke-[1.75]" />
               {wishlistCount > 0 && (
                 <span className="absolute top-1 right-1 bg-[#8A1F1F] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
                   {wishlistCount}
@@ -598,10 +614,10 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Desktop Cart Icon */}
             <button
               onClick={onOpenCart}
-              className="p-2 text-[#1C1C1C] hover:text-[#C7A13A] transition relative rounded-full hover:bg-gray-100"
+              className="p-2 text-[#1C1C1C] hover:text-[#C7A13A] hover:bg-[#F7F4EF] transition relative rounded-full"
               title="Shopping Bag"
             >
-              <ShoppingBag className="w-5.5 h-5.5 stroke-[1.75]" />
+              <ShoppingBag className="w-5 h-5 stroke-[1.75]" />
               {cartCount > 0 && (
                 <span className="absolute top-1 right-1 bg-[#C7A13A] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
                   {cartCount}
@@ -612,10 +628,10 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Desktop VIP Account Icon */}
             <button
               onClick={onOpenAccount}
-              className="p-2 text-[#1C1C1C] hover:text-[#C7A13A] transition rounded-full hover:bg-gray-100"
+              className="p-2 text-[#1C1C1C] hover:text-[#C7A13A] hover:bg-[#F7F4EF] transition rounded-full"
               title="VIP Account"
             >
-              <User className="w-5.5 h-5.5 stroke-[1.75]" />
+              <User className="w-5 h-5 stroke-[1.75]" />
             </button>
           </div>
         </div>
