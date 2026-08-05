@@ -571,22 +571,21 @@ export const Modals: React.FC<ModalsProps> = ({
         </div>
       )}
 
-      {/* ================= FLOATING ACTION BUTTONS ================= */}
-      {/* Floating WhatsApp Concierge */}
+      {/* Floating Action Bar (Right Screen Alignment) */}
       <a
         href="https://wa.me/97148004653"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 left-6 z-40 bg-[#25D366] text-white p-3.5 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center border-2 border-white"
+        className="fixed bottom-6 right-6 z-40 bg-[#25D366] text-white p-3 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center border-2 border-white"
         title="Chat with WhatsApp Concierge"
       >
-        <Phone className="w-6 h-6 fill-current" />
+        <Phone className="w-5 h-5 fill-current" />
       </a>
 
       {/* Floating VIP Appointment Button */}
       <button
         onClick={onCloseAppointment}
-        className="fixed bottom-6 right-6 z-40 bg-[#1C1C1C] text-[#C7A13A] border-2 border-[#C7A13A] px-5 py-3 rounded-full shadow-2xl hover:bg-[#C7A13A] hover:text-[#1C1C1C] transition-all duration-300 flex items-center space-x-2 text-xs font-bold uppercase tracking-wider gold-glow"
+        className="fixed bottom-6 right-20 z-40 bg-[#0D0D0C] text-[#C7A13A] border border-[#C7A13A] px-4 py-2.5 rounded-full shadow-2xl hover:bg-[#C7A13A] hover:text-[#0D0D0C] transition-all duration-300 flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider gold-glow"
       >
         <Calendar className="w-4 h-4" />
         <span className="hidden sm:inline">Book VIP Suite</span>
