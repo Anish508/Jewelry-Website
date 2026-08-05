@@ -12,7 +12,9 @@ export const Footer: React.FC = () => {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center space-x-3">
-              <Image src="/logo.jpeg" alt="Logo" width={40} height={40} className="rounded-full border border-[#C7A13A]/50" />
+              <div className="relative w-14 h-14 shrink-0">
+                <Image src="/brand-logo.png" alt="Emirates Gold Logo" fill className="object-contain" />
+              </div>
               <div>
                 <span className="font-serif text-2xl font-bold tracking-tight text-white block">
                   EMIRATES GOLD

@@ -166,8 +166,8 @@ export const Header: React.FC<HeaderProps> = ({
         <div>
           {/* Drawer Top Header: Logo Image Only */}
           <div className="flex items-center justify-between border-b border-[#E5DFD3] pb-4 mb-4">
-            <div className="relative w-14 h-14 rounded-full border-2 border-[#C7A13A] overflow-hidden bg-white shadow-md shrink-0">
-              <Image src="/logo.jpeg" alt="Logo" fill className="object-cover" />
+            <div className="relative w-16 h-16 shrink-0">
+              <Image src="/brand-logo.png" alt="Logo" fill className="object-contain" />
             </div>
             <button
               onClick={() => setMobileMenuOpen(false)}
@@ -320,9 +320,9 @@ export const Header: React.FC<HeaderProps> = ({
               <Menu className="w-7 h-7 text-[#1C1C1C]" />
             </button>
 
-            {/* Logo Image Only (logo.jpeg), no text */}
-            <a href="#" className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full border-2 border-[#C7A13A] overflow-hidden bg-white shrink-0 block shadow-md transition-transform duration-300 hover:scale-105">
-              <Image src="/logo.jpeg" alt="Logo" fill priority className="object-cover" />
+            {/* Logo Image Only (brand-logo.png), no text */}
+            <a href="#" className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 block transition-transform duration-300 hover:scale-105">
+              <Image src="/brand-logo.png" alt="Logo" fill priority className="object-contain" />
             </a>
           </div>
 
@@ -454,14 +454,14 @@ export const Header: React.FC<HeaderProps> = ({
       {/* ========================================================================= */}
       <div className="hidden lg:block max-w-[98%] xl:max-w-7xl mx-auto px-2 sm:px-4 lg:px-4 py-2">
         <div className="flex items-center justify-between gap-4 lg:gap-8">
-          {/* Left: Prominent Left-Corner Logo Image */}
+          {/* Left: Prominent Left-Corner Brand Logo Image */}
           <div className="flex items-center shrink-0">
             <a
               href="#"
-              className="relative w-16 h-16 lg:w-18 lg:h-18 rounded-full border-2 border-[#C7A13A] gold-glow overflow-hidden bg-white shrink-0 block transition-transform duration-300 hover:scale-105 shadow-md"
+              className="relative w-20 h-16 lg:w-24 lg:h-18 shrink-0 block transition-transform duration-300 hover:scale-105"
               title="Emirates Gold International"
             >
-              <Image src="/logo.jpeg" alt="Emirates Gold Logo" fill priority className="object-cover" />
+              <Image src="/brand-logo.png" alt="Emirates Gold Logo" fill priority className="object-contain" />
             </a>
           </div>
 

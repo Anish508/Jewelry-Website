@@ -182,12 +182,7 @@ export default function Home() {
         currency={currency}
       />
 
-      {/* Quick Actions & VIP Discovery Popup */}
-      <QuickActionsPopup
-        onQuickView={(p) => setQuickViewProduct(p)}
-        onAddToCart={handleAddToCart}
-        currency={currency}
-      />
+      {/* Quick Actions Popup Removed */}
     </div>
   );
 }
