@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { X, ShoppingBag, Heart, Star, Check, Calendar, Phone, Search, Truck } from "lucide-react";
+import { X, ShoppingBag, Heart, Star, Check, Phone, Search, Truck } from "lucide-react";
 import { Product, STORE_LOCATIONS } from "@/data/jewelleryData";
 
 interface ModalsProps {
@@ -73,6 +73,22 @@ export const Modals: React.FC<ModalsProps> = ({
   // Account local tab
   const [accountTab, setAccountTab] = useState<"login" | "register">("login");
 
+  // Lock background scroll when any modal or drawer is active
+  const isAnyModalOpen = Boolean(
+    quickViewProduct || cartOpen || wishlistOpen || appointmentOpen || searchOpen || accountOpen
+  );
+
+  useEffect(() => {
+    if (isAnyModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isAnyModalOpen]);
+
   // Calculate cart total
   const cartSubtotalAED = cartItems.reduce((acc, item) => acc + item.product.priceAED * item.quantity, 0);
   const cartSubtotalUSD = cartItems.reduce((acc, item) => acc + item.product.priceUSD * item.quantity, 0);
@@ -83,16 +99,25 @@ export const Modals: React.FC<ModalsProps> = ({
     <>
       {/* ================= QUICK VIEW MODAL ================= */}
       {quickViewProduct && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6">
-          <div className="bg-[#FAFAF8] rounded-2xl max-w-3xl w-full p-5 sm:p-8 relative max-h-[92vh] overflow-y-auto animate-fade-in border border-[#EAE8E4] shadow-2xl">
+        <div
+          onClick={onCloseQuickView}
+          className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 cursor-pointer animate-fade-in"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-[#FAFAF8] rounded-2xl max-w-3xl w-full p-5 sm:p-8 relative max-h-[92vh] overflow-y-auto animate-fade-in border border-[#EAE8E4] shadow-2xl cursor-default"
+          >
+            {/* Prominent Circular Close Button */}
             <button
               onClick={onCloseQuickView}
-              className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 text-[#1C1C1C] hover:text-[#C7A13A] transition rounded-full hover:bg-[#F7F4EF]"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-50 bg-[#0D0D0C] text-white p-2.5 rounded-full shadow-2xl hover:bg-[#C7A13A] border border-[#C7A13A]/50 transition flex items-center justify-center group"
+              title="Close (Esc)"
+              aria-label="Close Product View"
             >
-              <X className="w-5 h-5 sm:w-6 sm:h-6" />
+              <X className="w-5 h-5 text-[#C7A13A] group-hover:text-white transition-colors" />
             </button>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center pt-2">
               {/* Product Image */}
               <div className="relative aspect-square rounded-xl overflow-hidden bg-[#F7F4EF] border border-[#EAE8E4]">
                 <Image
@@ -220,15 +245,21 @@ export const Modals: React.FC<ModalsProps> = ({
 
       {/* ================= SHOPPING CART DRAWER ================= */}
       {cartOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-end">
-          <div className="w-full max-w-md bg-[#FAFAF8] h-full p-4 sm:p-6 flex flex-col justify-between shadow-2xl animate-slide-right border-l border-[#EAE8E4]">
+        <div
+          onClick={onCloseCart}
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-end cursor-pointer"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-md bg-[#FAFAF8] h-full p-4 sm:p-6 flex flex-col justify-between shadow-2xl animate-slide-right border-l border-[#EAE8E4] cursor-default"
+          >
             <div>
               <div className="flex items-center justify-between border-b border-[#EAE8E4] pb-3 mb-4">
                 <div className="flex items-center space-x-2">
                   <ShoppingBag className="w-5 h-5 text-[#C7A13A]" />
                   <h3 className="font-serif text-lg sm:text-xl font-bold text-[#1C1C1C]">Your Shopping Bag</h3>
                 </div>
-                <button onClick={onCloseCart} className="p-1.5 text-[#1C1C1C] hover:text-[#C7A13A]">
+                <button onClick={onCloseCart} className="p-1.5 text-[#1C1C1C] hover:text-[#C7A13A] rounded-full hover:bg-gray-100">
                   <X className="w-6 h-6" />
                 </button>
               </div>
@@ -305,15 +336,21 @@ export const Modals: React.FC<ModalsProps> = ({
 
       {/* ================= WISHLIST DRAWER ================= */}
       {wishlistOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-end">
-          <div className="w-full max-w-md bg-[#FAFAF8] h-full p-4 sm:p-6 flex flex-col justify-between shadow-2xl animate-slide-right border-l border-[#EAE8E4]">
+        <div
+          onClick={onCloseWishlist}
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-end cursor-pointer"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-md bg-[#FAFAF8] h-full p-4 sm:p-6 flex flex-col justify-between shadow-2xl animate-slide-right border-l border-[#EAE8E4] cursor-default"
+          >
             <div>
               <div className="flex items-center justify-between border-b border-[#EAE8E4] pb-3 mb-4">
                 <div className="flex items-center space-x-2">
                   <Heart className="w-5 h-5 text-[#8A1F1F] fill-current" />
                   <h3 className="font-serif text-lg sm:text-xl font-bold text-[#1C1C1C]">Your Saved Wishlist</h3>
                 </div>
-                <button onClick={onCloseWishlist} className="p-1.5 text-[#1C1C1C] hover:text-[#C7A13A]">
+                <button onClick={onCloseWishlist} className="p-1.5 text-[#1C1C1C] hover:text-[#C7A13A] rounded-full hover:bg-gray-100">
                   <X className="w-6 h-6" />
                 </button>
               </div>
@@ -356,8 +393,14 @@ export const Modals: React.FC<ModalsProps> = ({
 
       {/* ================= SEARCH OVERLAY ================= */}
       {searchOpen && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex flex-col p-3 sm:p-8">
-          <div className="max-w-3xl w-full mx-auto bg-[#FAFAF8] rounded-2xl p-4 sm:p-6 relative animate-fade-in border border-[#EAE8E4]">
+        <div
+          onClick={onCloseSearch}
+          className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex flex-col p-3 sm:p-8 cursor-pointer"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="max-w-3xl w-full mx-auto bg-[#FAFAF8] rounded-2xl p-4 sm:p-6 relative animate-fade-in border border-[#EAE8E4] cursor-default"
+          >
             <div className="flex items-center justify-between border-b border-[#EAE8E4] pb-3 mb-3">
               <div className="flex items-center space-x-2 flex-1">
                 <Search className="w-5 h-5 text-[#C7A13A]" />
@@ -370,7 +413,7 @@ export const Modals: React.FC<ModalsProps> = ({
                   className="w-full bg-transparent text-sm sm:text-base text-[#1C1C1C] focus:outline-none font-serif"
                 />
               </div>
-              <button onClick={onCloseSearch} className="p-1.5 text-[#1C1C1C] hover:text-[#C7A13A]">
+              <button onClick={onCloseSearch} className="p-1.5 text-[#1C1C1C] hover:text-[#C7A13A] rounded-full hover:bg-gray-100">
                 <X className="w-6 h-6" />
               </button>
             </div>
@@ -401,12 +444,18 @@ export const Modals: React.FC<ModalsProps> = ({
 
       {/* ================= ACCOUNT DRAWER ================= */}
       {accountOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-end">
-          <div className="w-full max-w-sm bg-[#FAFAF8] h-full p-4 sm:p-6 flex flex-col justify-between shadow-2xl animate-slide-right border-l border-[#EAE8E4]">
+        <div
+          onClick={onCloseAccount}
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-end cursor-pointer"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-sm bg-[#FAFAF8] h-full p-4 sm:p-6 flex flex-col justify-between shadow-2xl animate-slide-right border-l border-[#EAE8E4] cursor-default"
+          >
             <div>
               <div className="flex items-center justify-between border-b border-[#EAE8E4] pb-3 mb-5">
                 <h3 className="font-serif text-lg sm:text-xl font-bold text-[#1C1C1C]">Atelier VIP Portal</h3>
-                <button onClick={onCloseAccount} className="p-1.5 text-[#1C1C1C] hover:text-[#C7A13A]">
+                <button onClick={onCloseAccount} className="p-1.5 text-[#1C1C1C] hover:text-[#C7A13A] rounded-full hover:bg-gray-100">
                   <X className="w-6 h-6" />
                 </button>
               </div>
@@ -455,7 +504,7 @@ export const Modals: React.FC<ModalsProps> = ({
         </div>
       )}
 
-      {/* Floating Action Bar (Clean Single WhatsApp Icon on Right Screen) */}
+      {/* Floating Action Bar (WhatsApp Concierge) */}
       <a
         href="https://wa.me/97148004653"
         target="_blank"
