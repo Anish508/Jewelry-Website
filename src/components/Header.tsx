@@ -19,7 +19,6 @@ import {
   Gem,
   Phone,
   User,
-  MapPin,
   ChevronDown,
 } from "lucide-react";
 import { Product, PRODUCTS, GOLD_RATES } from "@/data/jewelleryData";
@@ -54,6 +53,7 @@ export const Header: React.FC<HeaderProps> = ({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileCategoryOpen, setMobileCategoryOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   // Search State (Navbar Inline Search)
   const [searchQuery, setSearchQuery] = useState("");
@@ -75,6 +75,15 @@ export const Header: React.FC<HeaderProps> = ({
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  // Track page scroll to collapse mobile searchbar dynamically
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 30);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Cycle placeholder text
@@ -166,7 +175,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div>
           {/* Drawer Top Header: Logo Image Only */}
           <div className="flex items-center justify-between border-b border-[#E5DFD3] pb-4 mb-4">
-            <div className="relative w-16 h-16 shrink-0">
+            <div className="relative h-12 w-28 shrink-0">
               <Image src="/brand-logo.png" alt="Logo" fill className="object-contain" />
             </div>
             <button
@@ -274,66 +283,47 @@ export const Header: React.FC<HeaderProps> = ({
   );
 
   return (
-    <header className="sticky top-0 z-40 bg-white border-b border-[#EAE6DF] text-[#1C1C1C] shadow-xs">
-      {/* Top Gold Rate Bar (Shared for both Mobile & Desktop) */}
-      <div className="bg-[#1C1C1C] text-[#FAFAF8] text-xs py-1 px-4 sm:px-8 border-b border-[#C7A13A]/30">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
-          <div className="flex items-center space-x-4 text-[11px] font-medium tracking-wide">
-            <span className="flex items-center text-[#C7A13A] font-bold uppercase tracking-wider text-[10px]">
-              <Sparkles className="w-3 h-3 mr-1 animate-pulse" /> Live Dubai Gold Rate
-            </span>
-            <span>
-              24K: <strong className="text-white font-bold">AED {GOLD_RATES.aed24k}/g</strong>
-            </span>
-            <span className="hidden sm:inline text-gray-300">
-              22K: <strong className="text-white">AED {GOLD_RATES.aed22k}/g</strong>
-            </span>
-          </div>
-
-          <div className="flex items-center space-x-3 text-[11px]">
-            <span className="text-gray-300 hidden sm:flex items-center">
-              <MapPin className="w-3 h-3 mr-1 text-[#C7A13A]" /> Dubai Atelier
-            </span>
-            <div className="h-3 w-px bg-white/20 hidden sm:block"></div>
-            <button
-              onClick={() => setCurrency(currency === "AED" ? "USD" : "AED")}
-              className="font-bold text-[#C7A13A] hover:underline uppercase text-xs"
-            >
-              {currency}
-            </button>
-          </div>
-        </div>
-      </div>
-
+    <header className="sticky top-0 z-40 bg-white border-b border-[#EAE6DF] text-[#1C1C1C] shadow-xs transition-all duration-300">
       {/* ========================================================================= */}
-      {/* MOBILE NAVBAR LAYOUT (lg:hidden) - Clean 2-Row Layout with Searchbar */}
+      {/* MOBILE NAVBAR LAYOUT (lg:hidden) - Ultra-Compact & Scroll-Optimized Header */}
       {/* ========================================================================= */}
       <div className="lg:hidden">
-        {/* Row 1: Hamburger Menu | Logo Image Only | Store, Wishlist, Cart */}
-        <div className="px-4 pt-2.5 pb-1 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
+        {/* Row 1: Mobile Header Bar (~48px height) */}
+        <div className="px-3 py-1.5 flex items-center justify-between">
+          <div className="flex items-center space-x-2">
             <button
               onClick={() => setMobileMenuOpen(true)}
               className="p-1 text-[#1C1C1C] hover:text-[#C7A13A] transition rounded-lg hover:bg-gray-100"
               aria-label="Open Mobile Menu"
             >
-              <Menu className="w-7 h-7 text-[#1C1C1C]" />
+              <Menu className="w-6 h-6 text-[#1C1C1C]" />
             </button>
 
-            {/* Logo Image Only (brand-logo.png), no text */}
-            <a href="#" className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 block transition-transform duration-300 hover:scale-105">
+            {/* Compact Brand Logo */}
+            <a href="#" className="relative h-10 w-28 shrink-0 block transition-transform duration-300 hover:scale-105">
               <Image src="/brand-logo.png" alt="Logo" fill priority className="object-contain" />
             </a>
           </div>
 
-          {/* Action Icons */}
-          <div className="flex items-center space-x-3">
+          {/* Action Icons (Includes Quick Search Button on Scroll) */}
+          <div className="flex items-center space-x-2">
+            {/* Quick Search Glass Trigger on Scroll */}
+            {isScrolled && (
+              <button
+                onClick={() => setIsSearchFocused(!isSearchFocused)}
+                className="p-1 text-[#1C1C1C] hover:text-[#C7A13A] transition rounded-full hover:bg-gray-100"
+                title="Search"
+              >
+                <Search className="w-5 h-5 stroke-[1.75]" />
+              </button>
+            )}
+
             <button
               onClick={onOpenAppointment}
               className="p-1 text-[#1C1C1C] hover:text-[#C7A13A] transition rounded-full hover:bg-gray-100"
               title="Store Locator"
             >
-              <Store className="w-6 h-6 stroke-[1.75]" />
+              <Store className="w-5 h-5 stroke-[1.75]" />
             </button>
 
             <button
@@ -341,9 +331,9 @@ export const Header: React.FC<HeaderProps> = ({
               className="p-1 text-[#1C1C1C] hover:text-[#C7A13A] transition relative rounded-full hover:bg-gray-100"
               title="Wishlist"
             >
-              <Heart className="w-6 h-6 stroke-[1.75]" />
+              <Heart className="w-5 h-5 stroke-[1.75]" />
               {wishlistCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#8A1F1F] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className="absolute -top-1 -right-1 bg-[#8A1F1F] text-white text-[9px] w-3.5 h-3.5 rounded-full flex items-center justify-center font-bold">
                   {wishlistCount}
                 </span>
               )}
@@ -354,99 +344,101 @@ export const Header: React.FC<HeaderProps> = ({
               className="p-1 text-[#1C1C1C] hover:text-[#C7A13A] transition relative rounded-full hover:bg-gray-100"
               title="Cart"
             >
-              <ShoppingBag className="w-6 h-6 stroke-[1.75]" />
-              <span className="absolute -top-1 -right-1 bg-[#8A1F1F] text-white text-[10px] w-4.5 h-4.5 rounded-full flex items-center justify-center font-bold border border-white">
+              <ShoppingBag className="w-5 h-5 stroke-[1.75]" />
+              <span className="absolute -top-1 -right-1 bg-[#8A1F1F] text-white text-[9px] w-3.5 h-3.5 rounded-full flex items-center justify-center font-bold border border-white">
                 {cartCount}
               </span>
             </button>
           </div>
         </div>
 
-        {/* Row 2: Mobile Integrated Searchbar */}
-        <div className="px-4 pb-2.5 pt-1">
-          <div ref={searchContainerRefMobile} className="relative w-full">
-            <div className="relative flex items-center bg-white border border-gray-300 rounded-2xl px-3 py-2 shadow-xs focus-within:border-[#C7A13A] focus-within:ring-2 focus-within:ring-[#C7A13A]/20 transition-all">
-              <Search className="w-4.5 h-4.5 text-gray-400 mr-2 shrink-0 stroke-[2]" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  setIsSearchFocused(true);
-                }}
-                onFocus={() => setIsSearchFocused(true)}
-                placeholder={placeholders[placeholderIndex]}
-                className="w-full bg-transparent text-sm text-[#1C1C1C] placeholder-gray-400 focus:outline-none font-serif"
-              />
-              {searchQuery && (
-                <button onClick={() => setSearchQuery("")} className="p-1 text-gray-400 hover:text-black mr-1">
-                  <X className="w-4 h-4" />
-                </button>
-              )}
-              <div className="flex items-center space-x-1.5 pl-2 border-l border-gray-200 ml-1 shrink-0">
-                <button onClick={() => setImageSearchModal(true)} className="p-1 text-gray-600 hover:text-[#C7A13A]">
-                  <Camera className="w-4.5 h-4.5" />
-                </button>
-                <button
-                  onClick={handleVoiceSearch}
-                  className={`p-1 transition ${isListening ? "text-red-500 animate-pulse" : "text-gray-600 hover:text-[#C7A13A]"}`}
-                >
-                  <Mic className="w-4.5 h-4.5" />
-                </button>
-              </div>
-            </div>
-
-            {/* Mobile Dropdown Search Results */}
-            {isSearchFocused && (
-              <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-2xl border border-gray-200 shadow-2xl p-4 z-50 animate-fade-in max-h-[60vh] overflow-y-auto">
-                <div className="flex items-center justify-between border-b border-gray-100 pb-2 mb-2">
-                  <span className="text-[11px] font-bold text-[#C7A13A] uppercase tracking-wider">
-                    {searchQuery ? `Results (${filteredProducts.length})` : "Popular Searches"}
-                  </span>
-                  <button onClick={() => setIsSearchFocused(false)} className="text-xs text-gray-400 hover:text-black">
-                    <X className="w-4 h-4" />
+        {/* Row 2: Mobile Searchbar (Auto Collapses on Scroll to Save Screen Space) */}
+        {(!isScrolled || isSearchFocused) && (
+          <div className="px-3 pb-2 pt-0.5 animate-fade-in">
+            <div ref={searchContainerRefMobile} className="relative w-full">
+              <div className="relative flex items-center bg-[#F9F8F6] border border-gray-300 rounded-xl px-2.5 py-1.5 shadow-2xs focus-within:border-[#C7A13A] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#C7A13A]/20 transition-all">
+                <Search className="w-4 h-4 text-gray-400 mr-2 shrink-0 stroke-[2]" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setIsSearchFocused(true);
+                  }}
+                  onFocus={() => setIsSearchFocused(true)}
+                  placeholder={placeholders[placeholderIndex]}
+                  className="w-full bg-transparent text-xs text-[#1C1C1C] placeholder-gray-400 focus:outline-none font-serif"
+                />
+                {searchQuery && (
+                  <button onClick={() => setSearchQuery("")} className="p-0.5 text-gray-400 hover:text-black mr-1">
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+                <div className="flex items-center space-x-1 pl-1.5 border-l border-gray-200 shrink-0">
+                  <button onClick={() => setImageSearchModal(true)} className="p-0.5 text-gray-500 hover:text-[#C7A13A]">
+                    <Camera className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    onClick={handleVoiceSearch}
+                    className={`p-0.5 transition ${isListening ? "text-red-500 animate-pulse" : "text-gray-500 hover:text-[#C7A13A]"}`}
+                  >
+                    <Mic className="w-3.5 h-3.5" />
                   </button>
                 </div>
-                {!searchQuery ? (
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {["Gold Necklace", "Diamond Ring", "24K Coin", "Bangles"].map((term) => (
-                      <button
-                        key={term}
-                        onClick={() => setSearchQuery(term)}
-                        className="text-xs bg-[#F7F4EF] hover:bg-[#C7A13A] hover:text-white px-2.5 py-1 rounded-full border border-[#E5DFD3] transition"
-                      >
-                        {term}
-                      </button>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="space-y-2">
-                    {filteredProducts.map((prod) => (
-                      <div
-                        key={prod.id}
-                        onClick={() => {
-                          if (onSelectProduct) onSelectProduct(prod);
-                          setIsSearchFocused(false);
-                        }}
-                        className="flex items-center space-x-3 p-2 rounded-xl hover:bg-[#F7F4EF] cursor-pointer transition"
-                      >
-                        <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-gray-100 shrink-0">
-                          <Image src={prod.imagePrimary} alt={prod.name} fill className="object-cover" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-serif font-bold text-xs text-[#1C1C1C] truncate">{prod.name}</h4>
-                          <span className="text-[11px] text-[#C7A13A] font-semibold">
-                            {currency === "AED" ? `AED ${prod.priceAED.toLocaleString()}` : `$${prod.priceUSD.toLocaleString()}`}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
               </div>
-            )}
+
+              {/* Mobile Dropdown Search Results */}
+              {isSearchFocused && (
+                <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-2xl border border-gray-200 shadow-2xl p-3 z-50 animate-fade-in max-h-[60vh] overflow-y-auto">
+                  <div className="flex items-center justify-between border-b border-gray-100 pb-2 mb-2">
+                    <span className="text-[10px] font-bold text-[#C7A13A] uppercase tracking-wider">
+                      {searchQuery ? `Results (${filteredProducts.length})` : "Popular Searches"}
+                    </span>
+                    <button onClick={() => setIsSearchFocused(false)} className="text-xs text-gray-400 hover:text-black">
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                  {!searchQuery ? (
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {["Gold Necklace", "Diamond Ring", "24K Coin", "Bangles"].map((term) => (
+                        <button
+                          key={term}
+                          onClick={() => setSearchQuery(term)}
+                          className="text-xs bg-[#F7F4EF] hover:bg-[#C7A13A] hover:text-white px-2 py-1 rounded-full border border-[#E5DFD3] transition"
+                        >
+                          {term}
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      {filteredProducts.map((prod) => (
+                        <div
+                          key={prod.id}
+                          onClick={() => {
+                            if (onSelectProduct) onSelectProduct(prod);
+                            setIsSearchFocused(false);
+                          }}
+                          className="flex items-center space-x-3 p-2 rounded-xl hover:bg-[#F7F4EF] cursor-pointer transition"
+                        >
+                          <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-gray-100 shrink-0">
+                            <Image src={prod.imagePrimary} alt={prod.name} fill className="object-cover" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-serif font-bold text-xs text-[#1C1C1C] truncate">{prod.name}</h4>
+                            <span className="text-[11px] text-[#C7A13A] font-semibold">
+                              {currency === "AED" ? `AED ${prod.priceAED.toLocaleString()}` : `$${prod.priceUSD.toLocaleString()}`}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* ========================================================================= */}
@@ -458,7 +450,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex items-center shrink-0">
             <a
               href="#"
-              className="relative w-20 h-16 lg:w-24 lg:h-18 shrink-0 block transition-transform duration-300 hover:scale-105"
+              className="relative w-24 h-14 lg:w-28 lg:h-16 shrink-0 block transition-transform duration-300 hover:scale-105"
               title="Emirates Gold International"
             >
               <Image src="/brand-logo.png" alt="Emirates Gold Logo" fill priority className="object-contain" />
