@@ -297,6 +297,24 @@ export const CUSTOMER_STORIES: Story[] = [
     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400",
     rating: 5,
   },
+  {
+    id: "story-4",
+    name: "Priya & Rajiv Shah",
+    location: "Dubai / Mumbai",
+    quote: "The 22K Empress Filigree bangles feature the finest craftsmanship I have ever seen. Uncompromising purity and majestic Arabesque details.",
+    purchase: "Empress Filigree Bangles Set",
+    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400",
+    rating: 5,
+  },
+  {
+    id: "story-5",
+    name: "Elena & Marcus Rostova",
+    location: "Zurich, Switzerland",
+    quote: "As Swiss collectors, we appreciate perfection. Emirates Gold International's diamond atelier matches the world's most elite jewellers.",
+    purchase: "Celestial Diamond Cascade",
+    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=400",
+    rating: 5,
+  },
 ];
 
 export const STORE_LOCATIONS = [
