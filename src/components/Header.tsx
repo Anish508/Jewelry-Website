@@ -175,7 +175,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div>
           {/* Drawer Top Header: Logo Image Only */}
           <div className="flex items-center justify-between border-b border-[#E5DFD3] pb-4 mb-4">
-            <div className="relative h-12 w-28 shrink-0">
+            <div className="relative h-14 w-36 shrink-0">
               <Image src="/brand-logo.png" alt="Logo" fill className="object-contain" />
             </div>
             <button
@@ -290,17 +290,17 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="lg:hidden">
         {/* Row 1: Mobile Header Bar (~48px height) */}
         <div className="px-3 py-1.5 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-0.5">
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="p-1 text-[#1C1C1C] hover:text-[#C7A13A] transition rounded-lg hover:bg-gray-100"
+              className="p-0.5 text-[#1C1C1C] hover:text-[#C7A13A] transition rounded-lg hover:bg-gray-100"
               aria-label="Open Mobile Menu"
             >
-              <Menu className="w-6 h-6 text-[#1C1C1C]" />
+              <Menu className="w-6.5 h-6.5 text-[#1C1C1C]" />
             </button>
 
-            {/* Compact Brand Logo */}
-            <a href="#" className="relative h-10 w-28 shrink-0 block transition-transform duration-300 hover:scale-105">
+            {/* Prominent Brand Logo */}
+            <a href="#" className="relative h-13 w-36 sm:h-15 sm:w-42 shrink-0 block transition-transform duration-300 hover:scale-105">
               <Image src="/brand-logo.png" alt="Logo" fill priority className="object-contain" />
             </a>
           </div>
