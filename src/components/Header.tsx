@@ -265,7 +265,7 @@ export const Header: React.FC<HeaderProps> = ({
               className="py-2.5 px-3 text-[#1C1C1C] bg-[#F7F4EF] border border-[#E5DFD3] rounded-full text-center font-bold hover:border-[#C7A13A] transition flex items-center justify-center space-x-1"
             >
               <User className="w-3.5 h-3.5 mr-1 text-[#C7A13A]" />
-              <span>VIP Portal</span>
+              <span>Client Portal</span>
             </button>
             <a
               href="https://wa.me/97148004653"
@@ -617,11 +617,11 @@ export const Header: React.FC<HeaderProps> = ({
               )}
             </button>
 
-            {/* Desktop VIP Account Icon */}
+            {/* Desktop Account Icon */}
             <button
               onClick={onOpenAccount}
               className="p-2 text-[#1C1C1C] hover:text-[#C7A13A] hover:bg-[#F7F4EF] transition rounded-full"
-              title="VIP Account"
+              title="My Account"
             >
               <User className="w-5 h-5 stroke-[1.75]" />
             </button>
@@ -668,7 +668,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <li><a href="#bridal" className="hover:text-[#C7A13A] transition">Royal Wedding Sets</a></li>
                 <li><a href="#bridal" className="hover:text-[#C7A13A] transition">Engagement Solitaire Bands</a></li>
                 <li><a href="#bridal" className="hover:text-[#C7A13A] transition">Anniversary Eternities</a></li>
-                <li><a href="#bridal" className="hover:text-[#C7A13A] transition">Corporate VIP Bullion Gifts</a></li>
+                <li><a href="#bridal" className="hover:text-[#C7A13A] transition">Corporate Bullion Gifts</a></li>
               </ul>
             </div>
 

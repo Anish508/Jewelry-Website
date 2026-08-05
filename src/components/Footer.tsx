@@ -65,7 +65,7 @@ export const Footer: React.FC = () => {
               Customer Atelier
             </h4>
             <ul className="space-y-2 text-xs text-gray-400">
-              <li><a href="#" className="hover:text-[#C7A13A] transition">Book VIP Consultation</a></li>
+              <li><a href="#" className="hover:text-[#C7A13A] transition">Book Private Consultation</a></li>
               <li><a href="#" className="hover:text-[#C7A13A] transition">Gold Rate Exchange Calculator</a></li>
               <li><a href="#" className="hover:text-[#C7A13A] transition">Certificates & Purity Verification</a></li>
               <li><a href="#" className="hover:text-[#C7A13A] transition">Insured Global Delivery</a></li>

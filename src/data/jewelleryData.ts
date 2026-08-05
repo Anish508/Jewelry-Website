@@ -322,5 +322,5 @@ export const STORE_LOCATIONS = [
   "Gold & Diamond Park – Flagship Showroom, Dubai",
   "Galleria Mall – Al Maryah Island, Abu Dhabi",
   "Mayfair Private Boutique, London UK",
-  "Fifth Avenue VIP Suite, New York USA",
+  "Fifth Avenue Private Suite, New York USA",
 ];

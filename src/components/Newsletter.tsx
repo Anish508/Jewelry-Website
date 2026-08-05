@@ -23,13 +23,13 @@ export const Newsletter: React.FC = () => {
 
         <div className="space-y-2">
           <span className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C7A13A]">
-            VIP Private Invitations
+            Private Invitations
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1C1C1C]">
             Join The Emirates Gold Circle
           </h2>
           <p className="text-sm text-[#5A5A5A] max-w-lg mx-auto">
-            Subscribe to receive private previews of new haute joaillerie releases, exclusive Dubai gold rate insights, and invitations to boutique VIP events.
+            Subscribe to receive private previews of new haute joaillerie releases, exclusive Dubai gold rate insights, and invitations to boutique private events.
           </p>
         </div>
 

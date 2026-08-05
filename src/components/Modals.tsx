@@ -405,7 +405,7 @@ export const Modals: React.FC<ModalsProps> = ({
           >
             <div>
               <div className="flex items-center justify-between border-b border-[#EAE8E4] pb-3 mb-5">
-                <h3 className="font-serif text-lg sm:text-xl font-bold text-[#1C1C1C]">Atelier VIP Portal</h3>
+                <h3 className="font-serif text-lg sm:text-xl font-bold text-[#1C1C1C]">Client Account</h3>
                 <button onClick={onCloseAccount} className="p-1.5 text-[#1C1C1C] hover:text-[#C7A13A] rounded-full hover:bg-gray-100">
                   <X className="w-6 h-6" />
                 </button>
@@ -426,11 +426,11 @@ export const Modals: React.FC<ModalsProps> = ({
                     accountTab === "register" ? "text-[#C7A13A] border-b-2 border-[#C7A13A]" : "text-gray-400"
                   }`}
                 >
-                  Create VIP Account
+                  Create Account
                 </button>
               </div>
 
-              <form onSubmit={(e) => { e.preventDefault(); alert("VIP Sign In Successful!"); onCloseAccount(); }} className="space-y-3 sm:space-y-4">
+              <form onSubmit={(e) => { e.preventDefault(); alert("Sign In Successful!"); onCloseAccount(); }} className="space-y-3 sm:space-y-4">
                 {accountTab === "register" && (
                   <div className="space-y-1">
                     <label className="text-[10px] sm:text-xs font-semibold text-[#1C1C1C] uppercase tracking-wider block">Full Name</label>
@@ -439,7 +439,7 @@ export const Modals: React.FC<ModalsProps> = ({
                 )}
                 <div className="space-y-1">
                   <label className="text-[10px] sm:text-xs font-semibold text-[#1C1C1C] uppercase tracking-wider block">Email Address</label>
-                  <input type="email" required placeholder="vip@emiratesgold.com" className="w-full px-3.5 py-2.5 bg-[#F7F4EF] rounded-xl border border-[#EAE8E4] text-xs text-[#1C1C1C]" />
+                  <input type="email" required placeholder="client@emiratesgold.com" className="w-full px-3.5 py-2.5 bg-[#F7F4EF] rounded-xl border border-[#EAE8E4] text-xs text-[#1C1C1C]" />
                 </div>
                 <div className="space-y-1">
                   <label className="text-[10px] sm:text-xs font-semibold text-[#1C1C1C] uppercase tracking-wider block">Password</label>
@@ -447,7 +447,7 @@ export const Modals: React.FC<ModalsProps> = ({
                 </div>
 
                 <button type="submit" className="w-full py-3.5 bg-[#1C1C1C] hover:bg-[#C7A13A] text-white text-xs font-semibold uppercase tracking-widest rounded-full transition gold-glow">
-                  {accountTab === "login" ? "Sign In To Account" : "Register VIP Member"}
+                  {accountTab === "login" ? "Sign In To Account" : "Register Member"}
                 </button>
               </form>
             </div>
