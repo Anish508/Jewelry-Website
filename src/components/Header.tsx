@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Search, Heart, ShoppingBag, User, MapPin, ChevronDown, Menu, X, Sparkles } from "lucide-react";
+import { Search, Heart, ShoppingBag, User, MapPin, ChevronDown, Menu, X, Sparkles, Gem, Award, ShieldCheck, Phone } from "lucide-react";
 import { GOLD_RATES } from "@/data/jewelleryData";
 
 interface HeaderProps {
@@ -30,13 +30,14 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileCategoryOpen, setMobileCategoryOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 bg-[#0D0D0C]/95 backdrop-blur-xl border-b border-[#C7A13A]/30 text-[#FAFAF8] shadow-2xl transition-all">
       {/* Top Gold Rate & Concierge Ticker */}
       <div className="bg-[#050505] text-[#FAFAF8] text-xs py-1.5 px-3 border-b border-white/5">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
-          {/* Mobile Concise Ticker / Desktop Full Rates */}
+          {/* Mobile Ticker / Desktop Full Rates */}
           <div className="flex items-center space-x-3 sm:space-x-6 text-[11px] font-medium tracking-wide">
             <span className="flex items-center text-[#C7A13A] font-bold uppercase tracking-wider text-[10px]">
               <Sparkles className="w-3 h-3 mr-1 animate-pulse" /> Live Gold Rate
@@ -78,21 +79,21 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Main Luxury Navigation Bar */}
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex items-center justify-between">
-        {/* Left Mobile Menu Button */}
+        {/* Left Mobile Hamburger Menu Trigger */}
         <div className="flex items-center lg:hidden">
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-1.5 text-[#FAFAF8] hover:text-[#C7A13A] focus:outline-none transition rounded-lg hover:bg-white/5"
-            aria-label="Toggle Mobile Navigation"
+            onClick={() => setMobileMenuOpen(true)}
+            className="p-2 text-[#FAFAF8] hover:text-[#C7A13A] focus:outline-none transition rounded-lg hover:bg-white/10 flex items-center space-x-1"
+            aria-label="Open Mobile Menu"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <Menu className="w-6 h-6 text-[#C7A13A]" />
           </button>
         </div>
 
         {/* Brand Logo & Title */}
         <div className="flex items-center">
-          <a href="#" className="flex items-center space-x-2.5 group">
-            <div className="relative w-9 h-9 sm:w-10 sm:h-10 overflow-hidden rounded-full border-2 border-[#C7A13A] gold-glow flex-shrink-0">
+          <a href="#" className="flex items-center space-x-2 sm:space-x-2.5 group">
+            <div className="relative w-8 h-8 sm:w-10 sm:h-10 overflow-hidden rounded-full border-2 border-[#C7A13A] gold-glow flex-shrink-0">
               <Image
                 src="/logo.jpeg"
                 alt="Emirates Gold Logo"
@@ -101,7 +102,7 @@ export const Header: React.FC<HeaderProps> = ({
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-serif text-lg sm:text-2xl font-bold tracking-tight text-[#FAFAF8] leading-none group-hover:text-[#C7A13A] transition-colors">
+              <span className="font-serif text-base sm:text-2xl font-semibold tracking-wide text-[#FAFAF8] leading-none group-hover:text-[#C7A13A] transition-colors">
                 EMIRATES GOLD
               </span>
               <span className="text-[8px] sm:text-[9px] tracking-[0.25em] font-semibold text-[#C7A13A] uppercase mt-0.5">
@@ -135,7 +136,7 @@ export const Header: React.FC<HeaderProps> = ({
         </nav>
 
         {/* Right Icon Actions */}
-        <div className="flex items-center space-x-1.5 sm:space-x-3">
+        <div className="flex items-center space-x-1 sm:space-x-3">
           <button
             onClick={onOpenSearch}
             className="p-2 text-[#FAFAF8] hover:text-[#C7A13A] transition rounded-full hover:bg-white/10"
@@ -187,7 +188,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {/* Mega Menu Dropdown */}
+      {/* Desktop Mega Menu Dropdown */}
       {megaMenuOpen && (
         <div
           onMouseLeave={() => setMegaMenuOpen(false)}
@@ -252,53 +253,127 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       )}
 
-      {/* Mobile Drawer Menu */}
+      {/* ULTRA-SLEEK MOBILE DRAWER NAVIGATION */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex justify-start">
-          <div className="w-4/5 max-w-sm bg-[#0D0D0C] border-r border-[#C7A13A]/30 h-full p-6 overflow-y-auto animate-slide-right flex flex-col justify-between text-white">
+        <div className="lg:hidden fixed inset-0 z-[100] bg-black/85 backdrop-blur-xl flex justify-start animate-fade-in">
+          <div className="w-[85%] max-w-sm bg-[#0D0D0C] border-r border-[#C7A13A]/40 h-full p-5 overflow-y-auto animate-slide-right flex flex-col justify-between text-white shadow-2xl">
             <div>
+              {/* Mobile Drawer Top Header */}
               <div className="flex items-center justify-between border-b border-[#C7A13A]/30 pb-4 mb-6">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2.5">
                   <Image src="/logo.jpeg" alt="Logo" width={32} height={32} className="rounded-full border border-[#C7A13A]" />
-                  <span className="font-serif font-bold text-lg text-white">EMIRATES GOLD</span>
+                  <div className="flex flex-col">
+                    <span className="font-serif font-semibold text-base text-white">EMIRATES GOLD</span>
+                    <span className="text-[8px] tracking-widest text-[#C7A13A] uppercase font-semibold">DUBAI ATELIER</span>
+                  </div>
                 </div>
-                <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-white hover:text-[#C7A13A]">
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-2 text-white hover:text-[#C7A13A] rounded-full hover:bg-white/10 transition"
+                  aria-label="Close Mobile Menu"
+                >
                   <X className="w-6 h-6" />
                 </button>
               </div>
 
-              <div className="space-y-4 font-serif text-lg text-gray-200">
-                <a href="#collections" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-[#C7A13A] border-b border-white/5">
-                  Featured Collections
+              {/* Live Gold Rate Banner embedded inside Mobile Menu */}
+              <div className="bg-[#1A1815] p-3 rounded-xl border border-[#C7A13A]/30 mb-6 text-xs space-y-1">
+                <div className="flex justify-between items-center text-[#C7A13A] font-bold text-[10px] uppercase tracking-wider">
+                  <span className="flex items-center"><Sparkles className="w-3 h-3 mr-1" /> Live Dubai Rates</span>
+                  <span>{GOLD_RATES.change24k}</span>
+                </div>
+                <div className="flex justify-between text-gray-200 font-semibold text-[11px] pt-1">
+                  <span>24K: AED {GOLD_RATES.aed24k}/g</span>
+                  <span>22K: AED {GOLD_RATES.aed22k}/g</span>
+                </div>
+              </div>
+
+              {/* Mobile Navigation Category Accordions & Links */}
+              <div className="space-y-3 font-serif text-base text-gray-200">
+                <a
+                  href="#collections"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-white/5 hover:text-[#C7A13A] transition border-b border-white/5"
+                >
+                  <span>Featured Collections</span>
+                  <Award className="w-4 h-4 text-[#C7A13A]" />
                 </a>
-                <a href="#categories" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-[#C7A13A] border-b border-white/5">
-                  Shop By Category
+
+                {/* Collapsible Category Link */}
+                <div>
+                  <button
+                    onClick={() => setMobileCategoryOpen(!mobileCategoryOpen)}
+                    className="w-full flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-white/5 hover:text-[#C7A13A] transition border-b border-white/5 text-left"
+                  >
+                    <span>Categories Atelier</span>
+                    <ChevronDown className={`w-4 h-4 text-[#C7A13A] transition-transform ${mobileCategoryOpen ? "rotate-180" : ""}`} />
+                  </button>
+                  {mobileCategoryOpen && (
+                    <div className="pl-4 py-2 space-y-2 text-xs font-sans text-gray-300 animate-fade-in border-l border-[#C7A13A]/30 ml-3 mt-1">
+                      <a href="#categories" onClick={() => setMobileMenuOpen(false)} className="block py-1 hover:text-[#C7A13A]">22K & 24K Gold Rings</a>
+                      <a href="#categories" onClick={() => setMobileMenuOpen(false)} className="block py-1 hover:text-[#C7A13A]">Empress Gold Bangles</a>
+                      <a href="#categories" onClick={() => setMobileMenuOpen(false)} className="block py-1 hover:text-[#C7A13A]">Solitaire Diamond Necklaces</a>
+                      <a href="#categories" onClick={() => setMobileMenuOpen(false)} className="block py-1 hover:text-[#C7A13A]">24K Stamped Gold Coins</a>
+                    </div>
+                  )}
+                </div>
+
+                <a
+                  href="#trending"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-white/5 hover:text-[#C7A13A] transition border-b border-white/5"
+                >
+                  <span>Trending Jewellery</span>
+                  <Gem className="w-4 h-4 text-[#C7A13A]" />
                 </a>
-                <a href="#trending" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-[#C7A13A] border-b border-white/5">
-                  Trending Jewellery
+
+                <a
+                  href="#bridal"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-white/5 hover:text-[#C7A13A] transition border-b border-white/5"
+                >
+                  <span>Wedding Couture</span>
+                  <Sparkles className="w-4 h-4 text-[#C7A13A]" />
                 </a>
-                <a href="#bridal" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-[#C7A13A] border-b border-white/5">
-                  Wedding Collection
-                </a>
-                <a href="#why-us" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-[#C7A13A] border-b border-white/5">
-                  Why Emirates Gold
+
+                <a
+                  href="#why-us"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-white/5 hover:text-[#C7A13A] transition border-b border-white/5"
+                >
+                  <span>Why Emirates Gold</span>
+                  <ShieldCheck className="w-4 h-4 text-[#C7A13A]" />
                 </a>
               </div>
             </div>
 
-            <div className="pt-6 border-t border-[#C7A13A]/30 space-y-3">
+            {/* Mobile Drawer Bottom Action CTAs */}
+            <div className="pt-6 border-t border-[#C7A13A]/30 space-y-3 font-sans">
               <button
                 onClick={() => { setMobileMenuOpen(false); onOpenAppointment(); }}
-                className="w-full py-3 text-xs font-semibold uppercase tracking-wider text-[#0F0E0C] bg-[#C7A13A] rounded-full text-center gold-glow font-bold"
+                className="w-full py-3.5 text-xs font-semibold uppercase tracking-wider text-[#0F0E0C] bg-[#C7A13A] rounded-full text-center gold-glow font-bold flex items-center justify-center space-x-1"
               >
-                Book VIP Appointment
+                <span>Book VIP Appointment Suite</span>
               </button>
-              <button
-                onClick={() => { setMobileMenuOpen(false); onOpenAccount(); }}
-                className="w-full py-3 text-xs font-semibold uppercase tracking-wider text-white border border-white/30 rounded-full text-center"
-              >
-                My Account
-              </button>
+
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                <button
+                  onClick={() => { setMobileMenuOpen(false); onOpenAccount(); }}
+                  className="py-2.5 px-3 text-white border border-white/20 rounded-full text-center font-semibold hover:border-[#C7A13A] transition flex items-center justify-center space-x-1"
+                >
+                  <User className="w-3.5 h-3.5 mr-1" />
+                  <span>Account</span>
+                </button>
+                <a
+                  href="https://wa.me/97148004653"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="py-2.5 px-3 bg-[#25D366] text-white rounded-full text-center font-semibold flex items-center justify-center space-x-1"
+                >
+                  <Phone className="w-3.5 h-3.5 mr-1 fill-current" />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
