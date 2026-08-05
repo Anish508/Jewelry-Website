@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { X, ShoppingBag, Heart, Star, Check, Calendar, Phone, Search, ShieldCheck, Truck } from "lucide-react";
+import { X, ShoppingBag, Heart, Star, Check, Calendar, Phone, Search, Truck } from "lucide-react";
 import { Product, STORE_LOCATIONS } from "@/data/jewelleryData";
 
 interface ModalsProps {
@@ -354,109 +354,6 @@ export const Modals: React.FC<ModalsProps> = ({
         </div>
       )}
 
-      {/* ================= BOOK VIP APPOINTMENT MODAL ================= */}
-      {appointmentOpen && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6">
-          <div className="bg-[#FAFAF8] rounded-2xl max-w-lg w-full p-5 sm:p-8 relative animate-fade-in border border-[#EAE8E4] shadow-2xl max-h-[92vh] overflow-y-auto">
-            <button onClick={onCloseAppointment} className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 text-[#1C1C1C] hover:text-[#C7A13A]">
-              <X className="w-5 h-5 sm:w-6 sm:h-6" />
-            </button>
-
-            {appointmentSuccess ? (
-              <div className="text-center py-6 space-y-3 sm:space-y-4">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#C7A13A]/20 text-[#C7A13A] flex items-center justify-center mx-auto">
-                  <Check className="w-7 h-7 sm:w-8 sm:h-8" />
-                </div>
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#1C1C1C]">Appointment Request Confirmed</h3>
-                <p className="text-xs text-[#5A5A5A] max-w-xs mx-auto">
-                  Our private atelier concierge will reach out to confirm your private viewing suite at <strong>{store}</strong> on <strong>{appDate || "Selected Date"}</strong>.
-                </p>
-                <button
-                  onClick={() => { setAppointmentSuccess(false); onCloseAppointment(); }}
-                  className="px-8 py-3 bg-[#1C1C1C] text-white text-xs font-semibold uppercase tracking-widest rounded-full"
-                >
-                  Done
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={(e) => { e.preventDefault(); setAppointmentSuccess(true); }} className="space-y-3 sm:space-y-4">
-                <div className="text-center space-y-1">
-                  <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-[#C7A13A]">Private Atelier</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#1C1C1C]">Book VIP Consultation</h3>
-                </div>
-
-                <div className="space-y-1">
-                  <label className="text-[10px] sm:text-xs font-semibold text-[#1C1C1C] uppercase tracking-wider block">Boutique Showroom</label>
-                  <select
-                    value={store}
-                    onChange={(e) => setStore(e.target.value)}
-                    className="w-full px-3 py-2.5 bg-[#F7F4EF] rounded-xl border border-[#EAE8E4] text-xs text-[#1C1C1C]"
-                  >
-                    {STORE_LOCATIONS.map((loc, idx) => (
-                      <option key={idx} value={loc}>{loc}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-1">
-                    <label className="text-[10px] sm:text-xs font-semibold text-[#1C1C1C] uppercase tracking-wider block">Preferred Date</label>
-                    <input
-                      type="date"
-                      required
-                      value={appDate}
-                      onChange={(e) => setAppDate(e.target.value)}
-                      className="w-full px-3 py-2 bg-[#F7F4EF] rounded-xl border border-[#EAE8E4] text-xs text-[#1C1C1C]"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-[10px] sm:text-xs font-semibold text-[#1C1C1C] uppercase tracking-wider block">Time Slot</label>
-                    <input
-                      type="time"
-                      required
-                      value={appTime}
-                      onChange={(e) => setAppTime(e.target.value)}
-                      className="w-full px-3 py-2 bg-[#F7F4EF] rounded-xl border border-[#EAE8E4] text-xs text-[#1C1C1C]"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-1">
-                  <label className="text-[10px] sm:text-xs font-semibold text-[#1C1C1C] uppercase tracking-wider block">Full Name</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Sheikha Al-Maktoum"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-[#F7F4EF] rounded-xl border border-[#EAE8E4] text-xs text-[#1C1C1C]"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="text-[10px] sm:text-xs font-semibold text-[#1C1C1C] uppercase tracking-wider block">Phone Number</label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="+971 50 000 0000"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-[#F7F4EF] rounded-xl border border-[#EAE8E4] text-xs text-[#1C1C1C]"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full py-3.5 bg-[#C7A13A] hover:bg-[#1C1C1C] text-[#1C1C1C] hover:text-white text-xs font-semibold uppercase tracking-widest rounded-full transition duration-300 gold-glow"
-                >
-                  Request VIP Suite Booking
-                </button>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
-
       {/* ================= SEARCH OVERLAY ================= */}
       {searchOpen && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex flex-col p-3 sm:p-8">
@@ -558,26 +455,16 @@ export const Modals: React.FC<ModalsProps> = ({
         </div>
       )}
 
-      {/* Floating Action Bar (Right Screen Alignment - Ultra Compact on Mobile) */}
+      {/* Floating Action Bar (Clean Single WhatsApp Icon on Right Screen) */}
       <a
         href="https://wa.me/97148004653"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-40 bg-[#25D366] text-white p-2.5 sm:p-3 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center border-2 border-white"
+        className="fixed bottom-6 right-6 z-40 bg-[#25D366] text-white p-3.5 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center border-2 border-white"
         title="Chat with WhatsApp Concierge"
       >
-        <Phone className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
+        <Phone className="w-5 h-5 fill-current" />
       </a>
-
-      {/* Floating VIP Appointment Button (Icon only on small mobile, full text on sm+) */}
-      <button
-        onClick={onCloseAppointment}
-        className="fixed bottom-5 right-15 sm:bottom-6 sm:right-20 z-40 bg-[#0D0D0C] text-[#C7A13A] border border-[#C7A13A] p-2.5 sm:px-4 sm:py-2.5 rounded-full shadow-2xl hover:bg-[#C7A13A] hover:text-[#0D0D0C] transition-all duration-300 flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider gold-glow"
-        title="Book VIP Appointment Suite"
-      >
-        <Calendar className="w-4 h-4" />
-        <span className="hidden sm:inline">Book VIP Suite</span>
-      </button>
     </>
   );
 };

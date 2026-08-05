@@ -2,13 +2,9 @@
 
 import React from "react";
 import Image from "next/image";
-import { Sparkles, Calendar } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
-interface WeddingBannerProps {
-  onOpenAppointment: () => void;
-}
-
-export const WeddingBanner: React.FC<WeddingBannerProps> = ({ onOpenAppointment }) => {
+export const WeddingBanner: React.FC = () => {
   return (
     <section id="bridal" className="relative w-full py-24 sm:py-32 overflow-hidden bg-[#1C1C1C]">
       {/* Background Image with Overlay */}
@@ -28,7 +24,7 @@ export const WeddingBanner: React.FC<WeddingBannerProps> = ({ onOpenAppointment 
           <span>Royal Arabian Couture</span>
         </div>
 
-        <h2 className="font-serif text-4xl sm:text-6xl font-bold tracking-tight max-w-3xl mx-auto leading-tight text-[#FAFAF8]">
+        <h2 className="font-serif text-4xl sm:text-6xl font-medium tracking-wide max-w-3xl mx-auto leading-tight text-[#FAFAF8]">
           The Royal Wedding Collection
         </h2>
 
@@ -36,17 +32,10 @@ export const WeddingBanner: React.FC<WeddingBannerProps> = ({ onOpenAppointment 
           Crafted for the bride who demands eternal majesty. Explore bespoke 22K gold chokers, multilayered haars, and GIA-certified solitaire diamond tiara sets.
         </p>
 
-        <div className="pt-4 flex flex-wrap justify-center gap-4">
-          <button
-            onClick={onOpenAppointment}
-            className="inline-flex items-center px-8 py-4 text-xs font-semibold uppercase tracking-widest text-[#1C1C1C] bg-[#C7A13A] rounded-full hover:bg-white transition duration-300 gold-glow"
-          >
-            <Calendar className="w-4 h-4 mr-2" />
-            Book Private Bridal Suite
-          </button>
+        <div className="pt-4 flex justify-center">
           <a
             href="#trending"
-            className="inline-flex items-center px-8 py-4 text-xs font-semibold uppercase tracking-widest text-white border-2 border-white/70 rounded-full hover:bg-white hover:text-[#1C1C1C] transition duration-300"
+            className="inline-flex items-center px-8 py-4 text-xs font-semibold uppercase tracking-widest text-[#0F0E0C] bg-[#C7A13A] rounded-full hover:bg-white transition duration-300 gold-glow"
           >
             View Bridal Lookbook
           </a>

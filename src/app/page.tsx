@@ -122,7 +122,7 @@ export default function Home() {
         cartCount={cartCount}
         wishlistCount={wishlistIds.length}
         onOpenCart={() => setCartOpen(true)}
-        onOpenWishlist={() => setWishlistOpen(true)}
+        onOpenWishlist={() => setCartOpen(true)}
         onOpenSearch={() => setSearchOpen(true)}
         onOpenAccount={() => setAccountOpen(true)}
         onOpenAppointment={() => setAppointmentOpen(true)}
@@ -132,7 +132,7 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="flex-grow">
-        <HeroCarousel onOpenAppointment={() => setAppointmentOpen(true)} />
+        <HeroCarousel />
         <FeaturedCollections />
         <CategoryGrid />
         <TrendingProducts
@@ -142,7 +142,7 @@ export default function Home() {
           wishlistIds={wishlistIds}
           currency={currency}
         />
-        <WeddingBanner onOpenAppointment={() => setAppointmentOpen(true)} />
+        <WeddingBanner />
         <DiamondMagazine />
         <OccasionGrid />
         <WhyUs />
@@ -184,7 +184,6 @@ export default function Home() {
       <QuickActionsPopup
         onQuickView={(p) => setQuickViewProduct(p)}
         onAddToCart={handleAddToCart}
-        onOpenAppointment={() => setAppointmentOpen(true)}
         currency={currency}
       />
     </div>

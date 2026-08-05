@@ -5,11 +5,7 @@ import Image from "next/image";
 import { Sparkles } from "lucide-react";
 import { HERO_SLIDES } from "@/data/jewelleryData";
 
-interface HeroCarouselProps {
-  onOpenAppointment: () => void;
-}
-
-export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onOpenAppointment }) => {
+export const HeroCarousel: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
@@ -59,19 +55,13 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onOpenAppointment })
                   {slide.subtitle}
                 </p>
 
-                <div className="pt-2 sm:pt-4 flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
+                <div className="pt-2 sm:pt-4">
                   <a
                     href="#collections"
-                    className="inline-flex items-center justify-center px-7 py-3.5 text-xs font-semibold uppercase tracking-widest text-[#0F0E0C] bg-[#C7A13A] rounded-full hover:bg-white transition duration-300 gold-glow text-center"
+                    className="inline-flex items-center justify-center px-8 py-4 text-xs font-semibold uppercase tracking-widest text-[#0F0E0C] bg-[#C7A13A] rounded-full hover:bg-white transition duration-300 gold-glow"
                   >
                     {slide.ctaPrimary}
                   </a>
-                  <button
-                    onClick={onOpenAppointment}
-                    className="inline-flex items-center justify-center px-7 py-3.5 text-xs font-semibold uppercase tracking-widest text-white border border-white/70 rounded-full hover:bg-white hover:text-[#0F0E0C] transition duration-300 backdrop-blur-sm text-center"
-                  >
-                    {slide.ctaSecondary}
-                  </button>
                 </div>
               </div>
             </div>
@@ -79,7 +69,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onOpenAppointment })
         </div>
       ))}
 
-      {/* Pagination Indicators Only (No Heavy Left/Right Arrow Buttons) */}
+      {/* Pagination Indicators Only */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex space-x-2.5">
         {HERO_SLIDES.map((_, index) => (
           <button

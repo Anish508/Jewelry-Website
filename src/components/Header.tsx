@@ -34,7 +34,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="sticky top-0 z-40 bg-[#0D0D0C]/95 backdrop-blur-xl border-b border-[#C7A13A]/30 text-[#FAFAF8] shadow-2xl transition-all">
-      {/* Top Gold Rate & Concierge Ticker */}
+      {/* Top Gold Rate Ticker */}
       <div className="bg-[#050505] text-[#FAFAF8] text-xs py-1.5 px-3 border-b border-white/5">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
           {/* Mobile Ticker / Desktop Full Rates */}
@@ -57,12 +57,9 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           <div className="flex items-center space-x-3 text-[11px]">
-            <button
-              onClick={onOpenAppointment}
-              className="hover:text-[#C7A13A] hidden sm:flex items-center text-gray-300 transition"
-            >
+            <span className="text-gray-300 hidden sm:flex items-center">
               <MapPin className="w-3 h-3 mr-1 text-[#C7A13A]" /> Dubai Atelier
-            </button>
+            </span>
             <div className="h-3 w-px bg-white/20 hidden sm:block"></div>
             <div className="flex items-center space-x-1">
               <span className="text-gray-400 text-[10px] uppercase font-medium">Curr:</span>
@@ -90,24 +87,16 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
         </div>
 
-        {/* Brand Logo & Title */}
+        {/* Brand Logo Only (Text Name Removed Near Logo) */}
         <div className="flex items-center">
-          <a href="#" className="flex items-center space-x-2 sm:space-x-2.5 group">
-            <div className="relative w-8 h-8 sm:w-10 sm:h-10 overflow-hidden rounded-full border-2 border-[#C7A13A] gold-glow flex-shrink-0">
+          <a href="#" className="flex items-center group" title="Emirates Gold International">
+            <div className="relative w-10 h-10 sm:w-11 sm:h-11 overflow-hidden rounded-full border-2 border-[#C7A13A] gold-glow flex-shrink-0">
               <Image
                 src="/logo.jpeg"
                 alt="Emirates Gold Logo"
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-serif text-base sm:text-2xl font-semibold tracking-wide text-[#FAFAF8] leading-none group-hover:text-[#C7A13A] transition-colors">
-                EMIRATES GOLD
-              </span>
-              <span className="text-[8px] sm:text-[9px] tracking-[0.25em] font-semibold text-[#C7A13A] uppercase mt-0.5">
-                INTERNATIONAL ATELIER
-              </span>
             </div>
           </a>
         </div>
@@ -136,7 +125,7 @@ export const Header: React.FC<HeaderProps> = ({
         </nav>
 
         {/* Right Icon Actions */}
-        <div className="flex items-center space-x-1 sm:space-x-3">
+        <div className="flex items-center space-x-1.5 sm:space-x-3">
           <button
             onClick={onOpenSearch}
             className="p-2 text-[#FAFAF8] hover:text-[#C7A13A] transition rounded-full hover:bg-white/10"
@@ -173,17 +162,10 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={onOpenAccount}
-            className="p-2 text-[#FAFAF8] hover:text-[#C7A13A] transition hidden sm:inline-flex rounded-full hover:bg-white/10"
+            className="p-2 text-[#FAFAF8] hover:text-[#C7A13A] transition rounded-full hover:bg-white/10"
             title="VIP Account"
           >
             <User className="w-5 h-5" />
-          </button>
-
-          <button
-            onClick={onOpenAppointment}
-            className="hidden md:inline-flex items-center px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[#0F0E0C] bg-[#C7A13A] rounded-full hover:bg-white transition gold-glow"
-          >
-            VIP Appointment
           </button>
         </div>
       </div>
@@ -242,12 +224,13 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
               <span className="text-[10px] tracking-widest uppercase font-bold text-[#C7A13A]">Atelier Highlight</span>
               <h5 className="font-serif font-bold text-sm text-white mt-1">The Royal Emerald Choker</h5>
-              <button
-                onClick={() => { setMegaMenuOpen(false); onOpenAppointment(); }}
-                className="mt-3 text-xs font-semibold text-[#0F0E0C] bg-[#C7A13A] hover:bg-white px-4 py-1.5 rounded-full transition gold-glow"
+              <a
+                href="#trending"
+                onClick={() => setMegaMenuOpen(false)}
+                className="mt-3 text-xs font-semibold text-[#0F0E0C] bg-[#C7A13A] hover:bg-white px-4 py-1.5 rounded-full transition inline-block gold-glow"
               >
-                Inquire Atelier
-              </button>
+                View Piece
+              </a>
             </div>
           </div>
         </div>
@@ -261,11 +244,7 @@ export const Header: React.FC<HeaderProps> = ({
               {/* Mobile Drawer Top Header */}
               <div className="flex items-center justify-between border-b border-[#C7A13A]/30 pb-4 mb-6">
                 <div className="flex items-center space-x-2.5">
-                  <Image src="/logo.jpeg" alt="Logo" width={32} height={32} className="rounded-full border border-[#C7A13A]" />
-                  <div className="flex flex-col">
-                    <span className="font-serif font-semibold text-base text-white">EMIRATES GOLD</span>
-                    <span className="text-[8px] tracking-widest text-[#C7A13A] uppercase font-semibold">DUBAI ATELIER</span>
-                  </div>
+                  <Image src="/logo.jpeg" alt="Logo" width={36} height={36} className="rounded-full border border-[#C7A13A]" />
                 </div>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
@@ -348,14 +327,7 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
 
             {/* Mobile Drawer Bottom Action CTAs */}
-            <div className="pt-6 border-t border-[#C7A13A]/30 space-y-3 font-sans">
-              <button
-                onClick={() => { setMobileMenuOpen(false); onOpenAppointment(); }}
-                className="w-full py-3.5 text-xs font-semibold uppercase tracking-wider text-[#0F0E0C] bg-[#C7A13A] rounded-full text-center gold-glow font-bold flex items-center justify-center space-x-1"
-              >
-                <span>Book VIP Appointment Suite</span>
-              </button>
-
+            <div className="pt-6 border-t border-[#C7A13A]/30 font-sans">
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <button
                   onClick={() => { setMobileMenuOpen(false); onOpenAccount(); }}

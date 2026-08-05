@@ -2,20 +2,18 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { X, Sparkles, Flame, Gem, ShoppingBag, Eye, ArrowRight } from "lucide-react";
+import { X, Sparkles, Flame, Gem, ShoppingBag, Eye } from "lucide-react";
 import { Product, PRODUCTS } from "@/data/jewelleryData";
 
 interface QuickActionsPopupProps {
   onQuickView: (product: Product) => void;
   onAddToCart: (product: Product) => void;
-  onOpenAppointment: () => void;
   currency: "AED" | "USD";
 }
 
 export const QuickActionsPopup: React.FC<QuickActionsPopupProps> = ({
   onQuickView,
   onAddToCart,
-  onOpenAppointment,
   currency,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -32,12 +30,12 @@ export const QuickActionsPopup: React.FC<QuickActionsPopupProps> = ({
 
   if (!isVisible) return null;
 
-  // Minimized Trigger Pill safely positioned to the left of Book VIP Suite & WhatsApp icon!
+  // Minimized Trigger Pill safely positioned on the right screen above WhatsApp!
   if (minimized) {
     return (
       <button
         onClick={() => setMinimized(false)}
-        className="fixed bottom-20 right-6 sm:bottom-6 sm:right-64 z-40 bg-[#0F0E0C]/95 backdrop-blur-md text-[#C7A13A] border border-[#C7A13A]/50 px-4 py-2.5 rounded-full shadow-2xl hover:bg-[#C7A13A] hover:text-[#0F0E0C] transition-all duration-300 flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider gold-glow animate-fade-in"
+        className="fixed bottom-20 right-6 sm:bottom-6 sm:right-20 z-40 bg-[#0F0E0C]/95 backdrop-blur-md text-[#C7A13A] border border-[#C7A13A]/50 px-4 py-2.5 rounded-full shadow-2xl hover:bg-[#C7A13A] hover:text-[#0F0E0C] transition-all duration-300 flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider gold-glow animate-fade-in"
       >
         <Sparkles className="w-3.5 h-3.5 text-[#C7A13A]" />
         <span>Quick Discover</span>
@@ -50,7 +48,7 @@ export const QuickActionsPopup: React.FC<QuickActionsPopupProps> = ({
   const currentProducts = activeTab === "bestsellers" ? bestSellers : newReleases;
 
   return (
-    <div className="fixed bottom-20 left-4 right-4 sm:left-auto sm:right-64 sm:bottom-6 z-40 max-w-[340px] w-full ml-auto animate-fade-in">
+    <div className="fixed bottom-20 left-4 right-4 sm:left-auto sm:right-20 sm:bottom-6 z-40 max-w-[340px] w-full ml-auto animate-fade-in">
       <div className="bg-[#0F0E0C]/95 backdrop-blur-xl border border-[#C7A13A]/40 rounded-2xl p-3.5 shadow-2xl text-white space-y-3 gold-glow">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -140,15 +138,6 @@ export const QuickActionsPopup: React.FC<QuickActionsPopupProps> = ({
             </div>
           ))}
         </div>
-
-        {/* Bottom VIP Link */}
-        <button
-          onClick={onOpenAppointment}
-          className="w-full py-1.5 bg-[#171512] hover:bg-[#C7A13A] text-gray-300 hover:text-[#0F0E0C] text-[10px] font-semibold uppercase tracking-wider rounded-xl transition border border-white/5 flex items-center justify-center space-x-1"
-        >
-          <span>Book Private Suite Consultation</span>
-          <ArrowRight className="w-3 h-3" />
-        </button>
       </div>
     </div>
   );
