@@ -35,9 +35,9 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-40 bg-[#0D0D0C]/95 backdrop-blur-xl border-b border-[#C7A13A]/30 text-[#FAFAF8] shadow-2xl transition-all">
       {/* Top Gold Rate Ticker */}
-      <div className="bg-[#050505] text-[#FAFAF8] text-xs py-1.5 px-3 border-b border-white/5">
+      <div className="bg-[#050505] text-[#FAFAF8] text-xs py-1.5 px-3 sm:px-6 border-b border-white/5">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
-          {/* Mobile Ticker / Desktop Full Rates */}
+          {/* Live Gold Rate Banner */}
           <div className="flex items-center space-x-3 sm:space-x-6 text-[11px] font-medium tracking-wide">
             <span className="flex items-center text-[#C7A13A] font-bold uppercase tracking-wider text-[10px]">
               <Sparkles className="w-3 h-3 mr-1 animate-pulse" /> Live Gold Rate
@@ -74,35 +74,43 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {/* Main Luxury Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex items-center justify-between">
-        {/* Left Mobile Hamburger Menu Trigger */}
-        <div className="flex items-center lg:hidden">
+      {/* Main Luxury Navigation Bar (Professionally Balanced Layout) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3 flex items-center justify-between">
+        {/* Left: Mobile Hamburger Trigger (Visible on Mobile < lg) */}
+        <div className="flex items-center lg:hidden w-12">
           <button
-            onClick={() => setMobileMenuOpen(true)}
-            className="p-2 text-[#FAFAF8] hover:text-[#C7A13A] focus:outline-none transition rounded-lg hover:bg-white/10 flex items-center space-x-1"
-            aria-label="Open Mobile Menu"
+            onClick={(e) => {
+              e.stopPropagation();
+              setMobileMenuOpen((prev) => !prev);
+            }}
+            className="p-2 text-[#FAFAF8] hover:text-[#C7A13A] focus:outline-none transition rounded-xl hover:bg-white/10 active:scale-95"
+            aria-label="Toggle Navigation Menu"
           >
-            <Menu className="w-6 h-6 text-[#C7A13A]" />
+            {mobileMenuOpen ? (
+              <X className="w-7 h-7 text-[#C7A13A]" />
+            ) : (
+              <Menu className="w-7 h-7 text-[#C7A13A]" />
+            )}
           </button>
         </div>
 
-        {/* Brand Logo Only (Text Name Removed Near Logo) */}
-        <div className="flex items-center">
-          <a href="#" className="flex items-center group" title="Emirates Gold International">
-            <div className="relative w-10 h-10 sm:w-11 sm:h-11 overflow-hidden rounded-full border-2 border-[#C7A13A] gold-glow flex-shrink-0">
+        {/* Center/Left: Prominent Large Logo Emblem (No Text Name Near Logo) */}
+        <div className="flex items-center justify-center lg:justify-start">
+          <a href="#" className="flex items-center group py-1" title="Emirates Gold International">
+            <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 overflow-hidden rounded-full border-2 border-[#C7A13A] gold-glow flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
               <Image
                 src="/logo.jpeg"
-                alt="Emirates Gold Logo"
+                alt="Emirates Gold Emblem Logo"
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                priority
+                className="object-cover"
               />
             </div>
           </a>
         </div>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center space-x-8 text-xs uppercase tracking-widest font-semibold text-[#FAFAF8]">
+        {/* Center: Desktop Navigation Links (Visible on >= lg) */}
+        <nav className="hidden lg:flex items-center space-x-9 text-xs uppercase tracking-[0.18em] font-semibold text-[#FAFAF8]">
           <a href="#collections" className="hover:text-[#C7A13A] transition py-2 border-b-2 border-transparent hover:border-[#C7A13A]">
             Collections
           </a>
@@ -111,7 +119,7 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setMegaMenuOpen(!megaMenuOpen)}
             className="hover:text-[#C7A13A] transition py-2 flex items-center border-b-2 border-transparent hover:border-[#C7A13A]"
           >
-            Category <ChevronDown className="w-3 h-3 ml-1" />
+            Category <ChevronDown className="w-3.5 h-3.5 ml-1 text-[#C7A13A]" />
           </button>
           <a href="#bridal" className="hover:text-[#C7A13A] transition py-2 border-b-2 border-transparent hover:border-[#C7A13A]">
             Bridal Couture
@@ -124,22 +132,22 @@ export const Header: React.FC<HeaderProps> = ({
           </a>
         </nav>
 
-        {/* Right Icon Actions */}
-        <div className="flex items-center space-x-1.5 sm:space-x-3">
+        {/* Right: Icon Actions (Search, Wishlist, Cart, Account) */}
+        <div className="flex items-center space-x-1 sm:space-x-3">
           <button
             onClick={onOpenSearch}
-            className="p-2 text-[#FAFAF8] hover:text-[#C7A13A] transition rounded-full hover:bg-white/10"
+            className="p-2.5 text-[#FAFAF8] hover:text-[#C7A13A] transition rounded-full hover:bg-white/10"
             title="Search Products"
           >
-            <Search className="w-5 h-5" />
+            <Search className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
 
           <button
             onClick={onOpenWishlist}
-            className="p-2 text-[#FAFAF8] hover:text-[#C7A13A] transition relative rounded-full hover:bg-white/10"
+            className="p-2.5 text-[#FAFAF8] hover:text-[#C7A13A] transition relative rounded-full hover:bg-white/10"
             title="Saved Wishlist"
           >
-            <Heart className="w-5 h-5" />
+            <Heart className="w-5 h-5 sm:w-6 sm:h-6" />
             {wishlistCount > 0 && (
               <span className="absolute top-1 right-1 bg-[#8A1F1F] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold border border-black">
                 {wishlistCount}
@@ -149,10 +157,10 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={onOpenCart}
-            className="p-2 text-[#FAFAF8] hover:text-[#C7A13A] transition relative rounded-full hover:bg-white/10"
+            className="p-2.5 text-[#FAFAF8] hover:text-[#C7A13A] transition relative rounded-full hover:bg-white/10"
             title="Shopping Cart"
           >
-            <ShoppingBag className="w-5 h-5" />
+            <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6" />
             {cartCount > 0 && (
               <span className="absolute top-1 right-1 bg-[#C7A13A] text-[#0F0E0C] text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold border border-black">
                 {cartCount}
@@ -162,10 +170,10 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={onOpenAccount}
-            className="p-2 text-[#FAFAF8] hover:text-[#C7A13A] transition rounded-full hover:bg-white/10"
+            className="p-2.5 text-[#FAFAF8] hover:text-[#C7A13A] transition hidden sm:inline-flex rounded-full hover:bg-white/10"
             title="VIP Account"
           >
-            <User className="w-5 h-5" />
+            <User className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
         </div>
       </div>
@@ -236,19 +244,27 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       )}
 
-      {/* ULTRA-SLEEK MOBILE DRAWER NAVIGATION */}
+      {/* ROCK-SOLID MOBILE DRAWER NAVIGATION (HIGH Z-INDEX OVERLAY) */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-[100] bg-black/85 backdrop-blur-xl flex justify-start animate-fade-in">
-          <div className="w-[85%] max-w-sm bg-[#0D0D0C] border-r border-[#C7A13A]/40 h-full p-5 overflow-y-auto animate-slide-right flex flex-col justify-between text-white shadow-2xl">
+        <div
+          onClick={() => setMobileMenuOpen(false)}
+          className="lg:hidden fixed inset-0 z-[999] bg-black/90 backdrop-blur-2xl flex justify-start animate-fade-in cursor-pointer"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-[85%] max-w-sm bg-[#0D0D0C] border-r border-[#C7A13A]/40 h-full p-5 overflow-y-auto animate-slide-right flex flex-col justify-between text-white shadow-2xl cursor-default"
+          >
             <div>
               {/* Mobile Drawer Top Header */}
               <div className="flex items-center justify-between border-b border-[#C7A13A]/30 pb-4 mb-6">
-                <div className="flex items-center space-x-2.5">
-                  <Image src="/logo.jpeg" alt="Logo" width={36} height={36} className="rounded-full border border-[#C7A13A]" />
+                <div className="flex items-center space-x-3">
+                  <div className="relative w-12 h-12 rounded-full border border-[#C7A13A] overflow-hidden gold-glow">
+                    <Image src="/logo.jpeg" alt="Logo" fill className="object-cover" />
+                  </div>
                 </div>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-2 text-white hover:text-[#C7A13A] rounded-full hover:bg-white/10 transition"
+                  className="p-2.5 text-white hover:text-[#C7A13A] rounded-full hover:bg-white/10 transition"
                   aria-label="Close Mobile Menu"
                 >
                   <X className="w-6 h-6" />
@@ -267,12 +283,12 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
               </div>
 
-              {/* Mobile Navigation Category Accordions & Links */}
+              {/* Mobile Navigation Links & Accordions */}
               <div className="space-y-3 font-serif text-base text-gray-200">
                 <a
                   href="#collections"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-white/5 hover:text-[#C7A13A] transition border-b border-white/5"
+                  className="flex items-center justify-between py-3 px-3.5 rounded-xl hover:bg-white/5 hover:text-[#C7A13A] transition border-b border-white/5"
                 >
                   <span>Featured Collections</span>
                   <Award className="w-4 h-4 text-[#C7A13A]" />
@@ -282,13 +298,13 @@ export const Header: React.FC<HeaderProps> = ({
                 <div>
                   <button
                     onClick={() => setMobileCategoryOpen(!mobileCategoryOpen)}
-                    className="w-full flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-white/5 hover:text-[#C7A13A] transition border-b border-white/5 text-left"
+                    className="w-full flex items-center justify-between py-3 px-3.5 rounded-xl hover:bg-white/5 hover:text-[#C7A13A] transition border-b border-white/5 text-left"
                   >
                     <span>Categories Atelier</span>
                     <ChevronDown className={`w-4 h-4 text-[#C7A13A] transition-transform ${mobileCategoryOpen ? "rotate-180" : ""}`} />
                   </button>
                   {mobileCategoryOpen && (
-                    <div className="pl-4 py-2 space-y-2 text-xs font-sans text-gray-300 animate-fade-in border-l border-[#C7A13A]/30 ml-3 mt-1">
+                    <div className="pl-4 py-2 space-y-2.5 text-xs font-sans text-gray-300 animate-fade-in border-l border-[#C7A13A]/30 ml-3 mt-1">
                       <a href="#categories" onClick={() => setMobileMenuOpen(false)} className="block py-1 hover:text-[#C7A13A]">22K & 24K Gold Rings</a>
                       <a href="#categories" onClick={() => setMobileMenuOpen(false)} className="block py-1 hover:text-[#C7A13A]">Empress Gold Bangles</a>
                       <a href="#categories" onClick={() => setMobileMenuOpen(false)} className="block py-1 hover:text-[#C7A13A]">Solitaire Diamond Necklaces</a>
@@ -300,7 +316,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <a
                   href="#trending"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-white/5 hover:text-[#C7A13A] transition border-b border-white/5"
+                  className="flex items-center justify-between py-3 px-3.5 rounded-xl hover:bg-white/5 hover:text-[#C7A13A] transition border-b border-white/5"
                 >
                   <span>Trending Jewellery</span>
                   <Gem className="w-4 h-4 text-[#C7A13A]" />
@@ -309,7 +325,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <a
                   href="#bridal"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-white/5 hover:text-[#C7A13A] transition border-b border-white/5"
+                  className="flex items-center justify-between py-3 px-3.5 rounded-xl hover:bg-white/5 hover:text-[#C7A13A] transition border-b border-white/5"
                 >
                   <span>Wedding Couture</span>
                   <Sparkles className="w-4 h-4 text-[#C7A13A]" />
@@ -318,7 +334,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <a
                   href="#why-us"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-white/5 hover:text-[#C7A13A] transition border-b border-white/5"
+                  className="flex items-center justify-between py-3 px-3.5 rounded-xl hover:bg-white/5 hover:text-[#C7A13A] transition border-b border-white/5"
                 >
                   <span>Why Emirates Gold</span>
                   <ShieldCheck className="w-4 h-4 text-[#C7A13A]" />
@@ -331,7 +347,7 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <button
                   onClick={() => { setMobileMenuOpen(false); onOpenAccount(); }}
-                  className="py-2.5 px-3 text-white border border-white/20 rounded-full text-center font-semibold hover:border-[#C7A13A] transition flex items-center justify-center space-x-1"
+                  className="py-3 px-3 text-white border border-white/20 rounded-full text-center font-semibold hover:border-[#C7A13A] transition flex items-center justify-center space-x-1"
                 >
                   <User className="w-3.5 h-3.5 mr-1" />
                   <span>Account</span>
@@ -340,7 +356,7 @@ export const Header: React.FC<HeaderProps> = ({
                   href="https://wa.me/97148004653"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-2.5 px-3 bg-[#25D366] text-white rounded-full text-center font-semibold flex items-center justify-center space-x-1"
+                  className="py-3 px-3 bg-[#25D366] text-white rounded-full text-center font-semibold flex items-center justify-center space-x-1"
                 >
                   <Phone className="w-3.5 h-3.5 mr-1 fill-current" />
                   <span>WhatsApp</span>
