@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Heart, Eye, ShoppingBag, Star, Sparkles } from "lucide-react";
 import { Product, PRODUCTS } from "@/data/jewelleryData";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
 interface TrendingProductsProps {
   onQuickView: (product: Product) => void;
@@ -25,23 +26,25 @@ export const TrendingProducts: React.FC<TrendingProductsProps> = ({
   return (
     <section id="trending" className="py-20 bg-[#FAFAF8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-          <div>
-            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C7A13A] flex items-center">
-              <Sparkles className="w-3.5 h-3.5 mr-1" /> Royal Bestsellers
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1C1C1C] mt-1">
-              Trending Atelier Masterpieces
-            </h2>
+        <ScrollReveal>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C7A13A] flex items-center">
+                <Sparkles className="w-3.5 h-3.5 mr-1" /> Royal Bestsellers
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1C1C1C] mt-1">
+                Trending Atelier Masterpieces
+              </h2>
+            </div>
+            <p className="text-sm text-[#5A5A5A] max-w-md mt-2 md:mt-0">
+              Handcrafted with certified diamonds and 22K/24K hallmarked gold. Highly sought after across Dubai & international boutiques.
+            </p>
           </div>
-          <p className="text-sm text-[#5A5A5A] max-w-md mt-2 md:mt-0">
-            Handcrafted with certified diamonds and 22K/24K hallmarked gold. Highly sought after across Dubai & international boutiques.
-          </p>
-        </div>
+        </ScrollReveal>
 
         {/* 4 Products Visible on Desktop / Mobile Swipe Carousel */}
         <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto no-scrollbar scroll-snap-x pb-4 sm:pb-0">
-          {PRODUCTS.map((product) => {
+          {PRODUCTS.map((product, idx) => {
             const isWishlisted = wishlistIds.includes(product.id);
             const priceDisplay =
               currency === "AED"
@@ -49,96 +52,86 @@ export const TrendingProducts: React.FC<TrendingProductsProps> = ({
                 : `$${product.priceUSD.toLocaleString()} USD`;
 
             return (
-              <div
-                key={product.id}
-                onMouseEnter={() => setHoveredId(product.id)}
-                onMouseLeave={() => setHoveredId(null)}
-                className="flex-none w-[280px] sm:w-auto scroll-snap-item group relative bg-[#FAFAF8] rounded-2xl border border-[#EAE8E4] p-4 luxury-card flex flex-col justify-between"
-              >
-                {/* Product Image Box */}
-                <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-[#F7F4EF] mb-4">
-                  <Image
-                    src={
-                      hoveredId === product.id
-                        ? product.imageSecondary
-                        : product.imagePrimary
-                    }
-                    alt={product.name}
-                    fill
-                    className="object-cover transition-transform duration-700 ease-out"
-                  />
+              <ScrollReveal key={product.id} delay={idx * 100}>
+                <div
+                  onMouseEnter={() => setHoveredId(product.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                  className="flex-none w-[280px] sm:w-auto scroll-snap-item group relative bg-[#FAFAF8] rounded-2xl border border-[#EAE8E4] p-4 luxury-card flex flex-col justify-between"
+                >
+                  {/* Product Image Box */}
+                  <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-[#F7F4EF] mb-4">
+                    <Image
+                      src={
+                        hoveredId === product.id
+                          ? product.imageSecondary
+                          : product.imagePrimary
+                      }
+                      alt={product.name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
 
-                  {/* Badges */}
-                  <div className="absolute top-3 left-3 flex flex-col gap-1 z-10">
-                    {product.isNew && (
-                      <span className="px-2.5 py-0.5 bg-[#C7A13A] text-xs font-bold text-[#1C1C1C] rounded-full uppercase tracking-wider">
-                        New Release
-                      </span>
-                    )}
-                    {product.isBestSeller && (
-                      <span className="px-2.5 py-0.5 bg-[#1C1C1C] text-xs font-semibold text-[#FAFAF8] rounded-full uppercase tracking-wider">
-                        Bestseller
-                      </span>
-                    )}
-                  </div>
+                    {/* Karat Tag */}
+                    <div className="absolute top-3 left-3 bg-[#1C1C1C]/90 text-[#FAFAF8] text-[10px] uppercase font-bold tracking-widest px-2.5 py-1 rounded-full border border-[#C7A13A]/50 backdrop-blur-sm">
+                      {product.karat}
+                    </div>
 
-                  {/* Wishlist Button */}
-                  <button
-                    onClick={() => onToggleWishlist(product)}
-                    className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-md transition-all z-10 ${
-                      isWishlisted
-                        ? "bg-[#8A1F1F] text-white"
-                        : "bg-white/80 text-[#1C1C1C] hover:bg-[#8A1F1F] hover:text-white"
-                    }`}
-                    title="Toggle Wishlist"
-                  >
-                    <Heart className="w-4 h-4 fill-current" />
-                  </button>
-
-                  {/* Quick View Button Overlay */}
-                  <div className="absolute inset-x-4 bottom-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex gap-2">
+                    {/* Wishlist Floating Button */}
                     <button
-                      onClick={() => onQuickView(product)}
-                      className="flex-1 py-2.5 bg-[#1C1C1C]/90 hover:bg-[#1C1C1C] text-white text-xs font-semibold uppercase tracking-wider rounded-full backdrop-blur-md flex items-center justify-center space-x-1 transition"
+                      onClick={() => onToggleWishlist(product)}
+                      className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-md transition-all duration-300 ${
+                        isWishlisted
+                          ? "bg-[#8A1F1F] text-white"
+                          : "bg-white/80 text-[#1C1C1C] hover:bg-[#C7A13A] hover:text-white"
+                      }`}
+                      title={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
                     >
-                      <Eye className="w-3.5 h-3.5" />
-                      <span>Quick View</span>
+                      <Heart className={`w-4 h-4 ${isWishlisted ? "fill-current" : ""}`} />
                     </button>
                   </div>
-                </div>
 
-                {/* Info Section */}
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between text-xs text-[#5A5A5A]">
-                    <span className="font-medium">{product.karat}</span>
-                    <div className="flex items-center text-[#C7A13A]">
+                  {/* Details */}
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-1 text-[#C7A13A] text-xs font-semibold">
                       <Star className="w-3.5 h-3.5 fill-current" />
-                      <span className="ml-1 font-bold text-xs">{product.rating}</span>
+                      <span>{product.rating}</span>
+                      <span className="text-gray-400 font-normal">({product.reviewsCount})</span>
                     </div>
-                  </div>
 
-                  <h3 className="font-serif text-lg font-bold text-[#1C1C1C] line-clamp-1 group-hover:text-[#C7A13A] transition-colors">
-                    {product.name}
-                  </h3>
+                    <h3 className="font-serif text-base font-bold text-[#1C1C1C] group-hover:text-[#C7A13A] transition-colors line-clamp-1">
+                      {product.name}
+                    </h3>
 
-                  <div className="pt-2 flex items-center justify-between border-t border-[#EAE8E4]">
-                    <div>
-                      <span className="text-xs text-[#5A5A5A] block">Atelier Price</span>
-                      <span className="font-serif font-bold text-lg text-[#1C1C1C]">
+                    <p className="text-xs text-[#5A5A5A] line-clamp-2 leading-relaxed">
+                      {product.description}
+                    </p>
+
+                    <div className="pt-2 flex items-center justify-between border-t border-[#EAE8E4]">
+                      <span className="font-serif font-bold text-sm text-[#1C1C1C]">
                         {priceDisplay}
                       </span>
-                    </div>
 
-                    <button
-                      onClick={() => onAddToCart(product)}
-                      className="p-2.5 bg-[#F7F4EF] hover:bg-[#C7A13A] hover:text-white text-[#1C1C1C] rounded-full transition-colors gold-glow"
-                      title="Add to Shopping Cart"
-                    >
-                      <ShoppingBag className="w-4 h-4" />
-                    </button>
+                      <div className="flex items-center space-x-1.5">
+                        <button
+                          onClick={() => onQuickView(product)}
+                          className="p-2.5 bg-white hover:bg-[#F7F4EF] text-[#1C1C1C] rounded-full border border-gray-200 transition-colors"
+                          title="Quick View"
+                        >
+                          <Eye className="w-4 h-4" />
+                        </button>
+
+                        <button
+                          onClick={() => onAddToCart(product)}
+                          className="p-2.5 bg-[#F7F4EF] hover:bg-[#C7A13A] hover:text-white text-[#1C1C1C] rounded-full transition-colors gold-glow"
+                          title="Add to Shopping Cart"
+                        >
+                          <ShoppingBag className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>

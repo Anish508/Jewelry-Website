@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import { CUSTOMER_STORIES } from "@/data/jewelleryData";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
 export const CustomerStories: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -43,33 +44,35 @@ export const CustomerStories: React.FC = () => {
     <section className="py-20 bg-[#F7F4EF] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-          <div className="space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C7A13A]">
-              Client Testimonials
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-[#1C1C1C] tracking-wide">
-              Customer Stories
-            </h2>
-          </div>
+        <ScrollReveal>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <div className="space-y-2">
+              <span className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C7A13A]">
+                Client Testimonials
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-[#1C1C1C] tracking-wide">
+                Customer Stories
+              </h2>
+            </div>
 
-          <div className="flex items-center space-x-3 mt-4 md:mt-0">
-            <button
-              onClick={handlePrev}
-              className="p-2.5 rounded-full bg-[#FAFAF8] text-[#1C1C1C] hover:bg-[#C7A13A] hover:text-white transition shadow-sm border border-[#EAE8E4]"
-              aria-label="Previous Testimonial"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={handleNext}
-              className="p-2.5 rounded-full bg-[#FAFAF8] text-[#1C1C1C] hover:bg-[#C7A13A] hover:text-white transition shadow-sm border border-[#EAE8E4]"
-              aria-label="Next Testimonial"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
+            <div className="flex items-center space-x-3 mt-4 md:mt-0">
+              <button
+                onClick={handlePrev}
+                className="p-2.5 rounded-full bg-[#FAFAF8] text-[#1C1C1C] hover:bg-[#C7A13A] hover:text-white transition shadow-sm border border-[#EAE8E4]"
+                aria-label="Previous Testimonial"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={handleNext}
+                className="p-2.5 rounded-full bg-[#FAFAF8] text-[#1C1C1C] hover:bg-[#C7A13A] hover:text-white transition shadow-sm border border-[#EAE8E4]"
+                aria-label="Next Testimonial"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Auto & Manual Horizontally Scrollable Cards Container */}
         <div
