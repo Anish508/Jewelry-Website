@@ -75,7 +75,7 @@ export const Modals: React.FC<ModalsProps> = ({
 
   // Lock background scroll when any modal or drawer is active
   const isAnyModalOpen = Boolean(
-    quickViewProduct || cartOpen || wishlistOpen || appointmentOpen || searchOpen || accountOpen
+    quickViewProduct || cartOpen || wishlistOpen || appointmentOpen || accountOpen
   );
 
   useEffect(() => {
@@ -391,56 +391,7 @@ export const Modals: React.FC<ModalsProps> = ({
         </div>
       )}
 
-      {/* ================= SEARCH OVERLAY ================= */}
-      {searchOpen && (
-        <div
-          onClick={onCloseSearch}
-          className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex flex-col p-3 sm:p-8 cursor-pointer"
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="max-w-3xl w-full mx-auto bg-[#FAFAF8] rounded-2xl p-4 sm:p-6 relative animate-fade-in border border-[#EAE8E4] cursor-default"
-          >
-            <div className="flex items-center justify-between border-b border-[#EAE8E4] pb-3 mb-3">
-              <div className="flex items-center space-x-2 flex-1">
-                <Search className="w-5 h-5 text-[#C7A13A]" />
-                <input
-                  type="text"
-                  autoFocus
-                  placeholder="Search gold rings, emerald chokers, solitaires, coins..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-transparent text-sm sm:text-base text-[#1C1C1C] focus:outline-none font-serif"
-                />
-              </div>
-              <button onClick={onCloseSearch} className="p-1.5 text-[#1C1C1C] hover:text-[#C7A13A] rounded-full hover:bg-gray-100">
-                <X className="w-6 h-6" />
-              </button>
-            </div>
 
-            {/* Results Grid */}
-            <div className="max-h-[60vh] overflow-y-auto space-y-2">
-              {allProducts
-                .filter((p) => p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.category.toLowerCase().includes(searchQuery.toLowerCase()))
-                .map((prod) => (
-                  <div
-                    key={prod.id}
-                    onClick={() => { onSelectProduct(prod); onCloseSearch(); }}
-                    className="flex items-center space-x-3 p-2 rounded-xl hover:bg-[#F7F4EF] cursor-pointer transition"
-                  >
-                    <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
-                      <Image src={prod.imagePrimary} alt={prod.name} fill className="object-cover" />
-                    </div>
-                    <div>
-                      <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1C1C]">{prod.name}</h4>
-                      <span className="text-xs text-[#C7A13A]">{prod.karat} • AED {prod.priceAED.toLocaleString()}</span>
-                    </div>
-                  </div>
-                ))}
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* ================= ACCOUNT DRAWER ================= */}
       {accountOpen && (

@@ -122,12 +122,14 @@ export default function Home() {
         cartCount={cartCount}
         wishlistCount={wishlistIds.length}
         onOpenCart={() => setCartOpen(true)}
-        onOpenWishlist={() => setCartOpen(true)}
+        onOpenWishlist={() => setWishlistOpen(true)}
         onOpenSearch={() => setSearchOpen(true)}
         onOpenAccount={() => setAccountOpen(true)}
         onOpenAppointment={() => setAppointmentOpen(true)}
         currency={currency}
         setCurrency={setCurrency}
+        allProducts={PRODUCTS}
+        onSelectProduct={(p) => setQuickViewProduct(p)}
       />
 
       {/* Main Content */}
