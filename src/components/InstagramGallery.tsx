@@ -29,10 +29,13 @@ export const InstagramGallery: React.FC = () => {
       </ScrollReveal>
 
       {/* Desktop Masonry / Mobile Horizontal Scroll */}
-      <div className="flex sm:grid sm:grid-cols-3 md:grid-cols-6 gap-3 overflow-x-auto no-scrollbar scroll-snap-x px-4 sm:px-8">
-        {posts.map((img, idx) => (
-          <ScrollReveal key={idx} delay={idx * 80}>
-            <div className="flex-none w-[200px] sm:w-auto scroll-snap-item relative h-64 rounded-xl overflow-hidden group bg-[#F7F4EF] luxury-card">
+      <ScrollReveal delay={150}>
+        <div className="flex sm:grid sm:grid-cols-3 md:grid-cols-6 gap-3 overflow-x-auto no-scrollbar scroll-snap-x px-4 sm:px-8 touch-pan-y">
+          {posts.map((img, idx) => (
+            <div
+              key={idx}
+              className="flex-none w-[200px] sm:w-auto scroll-snap-item relative h-64 rounded-xl overflow-hidden group bg-[#F7F4EF] luxury-card"
+            >
               <Image
                 src={img}
                 alt={`Instagram post ${idx + 1}`}
@@ -43,9 +46,9 @@ export const InstagramGallery: React.FC = () => {
                 <Camera className="w-8 h-8 text-[#C7A13A]" />
               </div>
             </div>
-          </ScrollReveal>
-        ))}
-      </div>
+          ))}
+        </div>
+      </ScrollReveal>
     </section>
   );
 };

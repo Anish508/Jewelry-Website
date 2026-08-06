@@ -120,8 +120,10 @@ html {
 
 /* Touch scroll snapping */
 .scroll-snap-x {
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  overscroll-behavior-x: contain;
 }
 .scroll-snap-item {
   scroll-snap-align: start;

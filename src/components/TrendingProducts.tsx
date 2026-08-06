@@ -43,17 +43,18 @@ export const TrendingProducts: React.FC<TrendingProductsProps> = ({
         </ScrollReveal>
 
         {/* 4 Products Visible on Desktop / Mobile Swipe Carousel */}
-        <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto no-scrollbar scroll-snap-x pb-4 sm:pb-0">
-          {PRODUCTS.map((product, idx) => {
-            const isWishlisted = wishlistIds.includes(product.id);
-            const priceDisplay =
-              currency === "AED"
-                ? `AED ${product.priceAED.toLocaleString()}`
-                : `$${product.priceUSD.toLocaleString()} USD`;
+        <ScrollReveal delay={150}>
+          <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto no-scrollbar scroll-snap-x pb-4 sm:pb-0 touch-pan-y">
+            {PRODUCTS.map((product) => {
+              const isWishlisted = wishlistIds.includes(product.id);
+              const priceDisplay =
+                currency === "AED"
+                  ? `AED ${product.priceAED.toLocaleString()}`
+                  : `$${product.priceUSD.toLocaleString()} USD`;
 
-            return (
-              <ScrollReveal key={product.id} delay={idx * 100}>
+              return (
                 <div
+                  key={product.id}
                   onMouseEnter={() => setHoveredId(product.id)}
                   onMouseLeave={() => setHoveredId(null)}
                   className="flex-none w-[280px] sm:w-auto scroll-snap-item group relative bg-[#FAFAF8] rounded-2xl border border-[#EAE8E4] p-4 luxury-card flex flex-col justify-between"
@@ -78,7 +79,10 @@ export const TrendingProducts: React.FC<TrendingProductsProps> = ({
 
                     {/* Wishlist Floating Button */}
                     <button
-                      onClick={() => onToggleWishlist(product)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onToggleWishlist(product);
+                      }}
                       className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-md transition-all duration-300 ${
                         isWishlisted
                           ? "bg-[#8A1F1F] text-white"
@@ -113,7 +117,10 @@ export const TrendingProducts: React.FC<TrendingProductsProps> = ({
 
                       <div className="flex items-center space-x-1.5">
                         <button
-                          onClick={() => onQuickView(product)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onQuickView(product);
+                          }}
                           className="p-2.5 bg-white hover:bg-[#F7F4EF] text-[#1C1C1C] rounded-full border border-gray-200 transition-colors"
                           title="Quick View"
                         >
@@ -121,7 +128,10 @@ export const TrendingProducts: React.FC<TrendingProductsProps> = ({
                         </button>
 
                         <button
-                          onClick={() => onAddToCart(product)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onAddToCart(product);
+                          }}
                           className="p-2.5 bg-[#F7F4EF] hover:bg-[#C7A13A] hover:text-white text-[#1C1C1C] rounded-full transition-colors gold-glow"
                           title="Add to Shopping Cart"
                         >
@@ -131,10 +141,10 @@ export const TrendingProducts: React.FC<TrendingProductsProps> = ({
                     </div>
                   </div>
                 </div>
-              </ScrollReveal>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

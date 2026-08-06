@@ -26,10 +26,13 @@ export const CategoryGrid: React.FC = () => {
         </ScrollReveal>
 
         {/* Desktop Grid / Mobile Horizontal Carousel */}
-        <div className="flex sm:grid sm:grid-cols-3 md:grid-cols-5 gap-4 overflow-x-auto no-scrollbar scroll-snap-x pb-4 sm:pb-0">
-          {CATEGORIES.map((cat, idx) => (
-            <ScrollReveal key={cat.id} delay={idx * 80}>
-              <div className="flex-none w-[170px] sm:w-auto scroll-snap-item group relative bg-[#FAFAF8] rounded-2xl p-4 border border-[#EAE8E4] text-center luxury-card cursor-pointer">
+        <ScrollReveal delay={150}>
+          <div className="flex sm:grid sm:grid-cols-3 md:grid-cols-5 gap-4 overflow-x-auto no-scrollbar scroll-snap-x pb-4 sm:pb-0 touch-pan-y">
+            {CATEGORIES.map((cat) => (
+              <div
+                key={cat.id}
+                className="flex-none w-[170px] sm:w-auto scroll-snap-item group relative bg-[#FAFAF8] rounded-2xl p-4 border border-[#EAE8E4] text-center luxury-card cursor-pointer"
+              >
                 <div className="relative w-full aspect-square mb-4 rounded-xl overflow-hidden bg-[#F7F4EF]">
                   <Image
                     src={cat.image}
@@ -45,9 +48,9 @@ export const CategoryGrid: React.FC = () => {
                   {cat.itemCount}
                 </span>
               </div>
-            </ScrollReveal>
-          ))}
-        </div>
+            ))}
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

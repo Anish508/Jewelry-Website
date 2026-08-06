@@ -27,10 +27,13 @@ export const FeaturedCollections: React.FC = () => {
         </ScrollReveal>
 
         {/* Desktop 4-Column Grid / Mobile Swipe Carousel */}
-        <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto no-scrollbar scroll-snap-x pb-4 sm:pb-0">
-          {FEATURED_COLLECTIONS.map((collection, idx) => (
-            <ScrollReveal key={collection.id} delay={idx * 100}>
-              <div className="flex-none w-[280px] sm:w-auto scroll-snap-item group relative bg-[#F7F4EF] rounded-2xl overflow-hidden border border-[#EAE8E4] luxury-card cursor-pointer">
+        <ScrollReveal delay={150}>
+          <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto no-scrollbar scroll-snap-x pb-4 sm:pb-0 touch-pan-y">
+            {FEATURED_COLLECTIONS.map((collection) => (
+              <div
+                key={collection.id}
+                className="flex-none w-[280px] sm:w-auto scroll-snap-item group relative bg-[#F7F4EF] rounded-2xl overflow-hidden border border-[#EAE8E4] luxury-card cursor-pointer"
+              >
                 <div className="relative h-80 sm:h-96 w-full overflow-hidden">
                   <Image
                     src={collection.image}
@@ -62,9 +65,9 @@ export const FeaturedCollections: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </ScrollReveal>
-          ))}
-        </div>
+            ))}
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
