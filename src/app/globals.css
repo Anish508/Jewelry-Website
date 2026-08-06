@@ -1,36 +1,61 @@
 @import "tailwindcss";
 
+@theme {
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-inter), "Inter", -apple-system, sans-serif;
+}
+
 @layer base {
   :root {
-    --font-serif-luxury: "Times New Roman", Times, var(--font-cinzel), Georgia, serif;
-    --font-serif-editorial: "Times New Roman", Times, var(--font-playfair), Georgia, serif;
-    --font-sans: "Times New Roman", Times, var(--font-jakarta), Georgia, serif;
-    
-    --bg-primary: #FAFAF8;
-    --bg-secondary: #F7F4EF;
-    --text-primary: #1C1C1C;
-    --text-secondary: #5A5A5A;
-    --gold-primary: #C7A13A;
-    --gold-dark: #A88327;
-    --gold-light: #F4E8C1;
-    --burgundy: #8A1F1F;
-    --dark-surface: #0D0D0C;
-  }
-
-  * {
-    font-family: "Times New Roman", Times, Georgia, serif;
+    --font-cormorant: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+    --font-inter: var(--font-inter), "Inter", -apple-system, sans-serif;
   }
 
   body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-family: "Times New Roman", Times, Georgia, serif !important;
+    background-color: #FAFAF8;
+    color: #1C1C1C;
+    font-family: var(--font-inter), "Inter", -apple-system, sans-serif !important;
+    font-weight: 400;
+    line-height: 1.7 !important;
+    letter-spacing: 0.01em !important;
     overflow-x: hidden;
-    letter-spacing: 0.01em;
   }
 
-  h1, h2, h3, h4, h5, h6, .font-serif, .font-sans, .font-editorial, p, span, a, button, input, select, textarea {
-    font-family: "Times New Roman", Times, Georgia, serif !important;
+  /* Headings: Cormorant Garamond */
+  h1, h2, h3, h4, h5, h6, .font-serif {
+    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif !important;
+  }
+
+  /* Primary Headings Specification: Weight 600, UPPERCASE, Letter Spacing 0.05em, Line Height 1.05 */
+  h1, .heading-primary {
+    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    line-height: 1.05 !important;
+  }
+
+  /* Secondary Headings Specification: Weight 500 */
+  h2, h3, .heading-secondary {
+    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif !important;
+    font-weight: 500 !important;
+  }
+
+  /* Navigation Links Specification: Inter Weight 500, Letter Spacing 0.04em */
+  nav, nav a, nav button, .font-nav {
+    font-family: var(--font-inter), "Inter", sans-serif !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  /* Buttons Specification: Inter Weight 600 */
+  button, a.btn, .font-btn {
+    font-family: var(--font-inter), "Inter", sans-serif !important;
+    font-weight: 600 !important;
+  }
+
+  p, span, li, label, input, select, textarea {
+    font-family: var(--font-inter), "Inter", sans-serif;
   }
 }
 
