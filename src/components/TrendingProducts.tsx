@@ -2,9 +2,10 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Heart, Eye, ShoppingBag, Star, Sparkles } from "lucide-react";
+import { Heart, Eye, ShoppingBag, Star, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 import { Product, PRODUCTS } from "@/data/jewelleryData";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
 
 interface TrendingProductsProps {
   onQuickView: (product: Product) => void;
@@ -22,6 +23,15 @@ export const TrendingProducts: React.FC<TrendingProductsProps> = ({
   currency,
 }) => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const {
+    containerRef,
+    canScrollLeft,
+    canScrollRight,
+    scrollLeft,
+    scrollRight,
+    isDragging,
+    dragProps,
+  } = useHorizontalScroll({ enableWheel: true });
 
   return (
     <section id="trending" className="py-20 bg-[#FAFAF8]">
@@ -42,9 +52,15 @@ export const TrendingProducts: React.FC<TrendingProductsProps> = ({
           </div>
         </ScrollReveal>
 
-        {/* 4 Products Visible on Desktop / Mobile Swipe Carousel */}
+        {/* Horizontally Scrollable Products Carousel */}
         <ScrollReveal delay={150}>
-          <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto no-scrollbar scroll-snap-x pb-4 sm:pb-0 touch-pan-y">
+          <div
+            ref={containerRef}
+            {...dragProps}
+            className={`flex gap-6 overflow-x-auto no-scrollbar scroll-snap-x pb-4 pt-1 px-1 select-none ${
+              isDragging ? "cursor-grabbing" : "cursor-grab"
+            }`}
+          >
             {PRODUCTS.map((product) => {
               const isWishlisted = wishlistIds.includes(product.id);
               const priceDisplay =
@@ -57,7 +73,7 @@ export const TrendingProducts: React.FC<TrendingProductsProps> = ({
                   key={product.id}
                   onMouseEnter={() => setHoveredId(product.id)}
                   onMouseLeave={() => setHoveredId(null)}
-                  className="flex-none w-[280px] sm:w-auto scroll-snap-item group relative bg-[#FAFAF8] rounded-2xl border border-[#EAE8E4] p-4 luxury-card flex flex-col justify-between"
+                  className="flex-none w-[280px] sm:w-[310px] scroll-snap-item group relative bg-[#FAFAF8] rounded-2xl border border-[#EAE8E4] p-4 luxury-card flex flex-col justify-between"
                 >
                   {/* Product Image Box */}
                   <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-[#F7F4EF] mb-4">

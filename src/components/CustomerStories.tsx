@@ -1,34 +1,77 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import { CUSTOMER_STORIES } from "@/data/jewelleryData";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
 
 export const CustomerStories: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
-  // Auto scroll timer
+  const {
+    containerRef,
+    canScrollLeft,
+    canScrollRight,
+    scrollLeft,
+    scrollRight,
+    isDragging,
+    dragProps,
+  } = useHorizontalScroll({ enableWheel: true });
+
+  const scrollToIndex = useCallback(
+    (index: number) => {
+      setActiveIndex(index);
+      const container = containerRef.current;
+      if (container && container.children[index]) {
+        const targetCard = container.children[index] as HTMLElement;
+        container.scrollTo({
+          left: targetCard.offsetLeft - container.offsetLeft,
+          behavior: "smooth",
+        });
+      }
+    },
+    [containerRef]
+  );
+
+  // Auto scroll timer, paused when user hovers or drags
   useEffect(() => {
+    if (isHovered || isDragging) return;
     const timer = setInterval(() => {
       const nextIndex = (activeIndex + 1) % CUSTOMER_STORIES.length;
       scrollToIndex(nextIndex);
-    }, 4500);
+    }, 5000);
     return () => clearInterval(timer);
-  }, [activeIndex]);
+  }, [activeIndex, isHovered, isDragging, scrollToIndex]);
 
-  const scrollToIndex = (index: number) => {
-    setActiveIndex(index);
-    if (scrollRef.current) {
-      const cardWidth = 360; // Card width + gap
-      scrollRef.current.scrollTo({
-        left: index * cardWidth,
-        behavior: "smooth",
+  // Sync activeIndex dynamically when user scrolls/drags manually
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const scrollLeftPos = container.scrollLeft;
+      const children = Array.from(container.children) as HTMLElement[];
+      let closestIdx = 0;
+      let minDistance = Infinity;
+
+      children.forEach((child, idx) => {
+        const childOffset = child.offsetLeft - container.offsetLeft;
+        const distance = Math.abs(childOffset - scrollLeftPos);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIdx = idx;
+        }
       });
-    }
-  };
+
+      setActiveIndex(closestIdx);
+    };
+
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, [containerRef]);
 
   const handlePrev = () => {
     const newIdx = (activeIndex - 1 + CUSTOMER_STORIES.length) % CUSTOMER_STORIES.length;
@@ -58,14 +101,24 @@ export const CustomerStories: React.FC = () => {
             <div className="flex items-center space-x-3 mt-4 md:mt-0">
               <button
                 onClick={handlePrev}
-                className="p-2.5 rounded-full bg-[#FAFAF8] text-[#1C1C1C] hover:bg-[#C7A13A] hover:text-white transition shadow-sm border border-[#EAE8E4]"
+                disabled={!canScrollLeft && activeIndex === 0}
+                className={`p-2.5 rounded-full border border-[#EAE8E4] transition shadow-sm ${
+                  canScrollLeft || activeIndex > 0
+                    ? "bg-[#FAFAF8] text-[#1C1C1C] hover:bg-[#C7A13A] hover:text-white cursor-pointer"
+                    : "bg-[#FAFAF8] text-gray-300 cursor-not-allowed opacity-50"
+                }`}
                 aria-label="Previous Testimonial"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={handleNext}
-                className="p-2.5 rounded-full bg-[#FAFAF8] text-[#1C1C1C] hover:bg-[#C7A13A] hover:text-white transition shadow-sm border border-[#EAE8E4]"
+                disabled={!canScrollRight && activeIndex === CUSTOMER_STORIES.length - 1}
+                className={`p-2.5 rounded-full border border-[#EAE8E4] transition shadow-sm ${
+                  canScrollRight || activeIndex < CUSTOMER_STORIES.length - 1
+                    ? "bg-[#FAFAF8] text-[#1C1C1C] hover:bg-[#C7A13A] hover:text-white cursor-pointer"
+                    : "bg-[#FAFAF8] text-gray-300 cursor-not-allowed opacity-50"
+                }`}
                 aria-label="Next Testimonial"
               >
                 <ChevronRight className="w-5 h-5" />
@@ -76,8 +129,13 @@ export const CustomerStories: React.FC = () => {
 
         {/* Auto & Manual Horizontally Scrollable Cards Container */}
         <div
-          ref={scrollRef}
-          className="flex gap-6 overflow-x-auto no-scrollbar scroll-snap-x pb-6"
+          ref={containerRef}
+          {...dragProps}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          className={`flex gap-6 overflow-x-auto no-scrollbar scroll-snap-x pb-6 pt-1 px-1 select-none ${
+            isDragging ? "cursor-grabbing" : "cursor-grab"
+          }`}
         >
           {CUSTOMER_STORIES.map((story, idx) => (
             <div
@@ -127,7 +185,7 @@ export const CustomerStories: React.FC = () => {
             <button
               key={idx}
               onClick={() => scrollToIndex(idx)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
+              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                 idx === activeIndex ? "w-6 bg-[#C7A13A]" : "w-1.5 bg-[#1C1C1C]/20 hover:bg-[#1C1C1C]/40"
               }`}
               aria-label={`Go to slide ${idx + 1}`}

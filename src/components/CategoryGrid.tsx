@@ -2,10 +2,22 @@
 
 import React from "react";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CATEGORIES } from "@/data/jewelleryData";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
 
 export const CategoryGrid: React.FC = () => {
+  const {
+    containerRef,
+    canScrollLeft,
+    canScrollRight,
+    scrollLeft,
+    scrollRight,
+    isDragging,
+    dragProps,
+  } = useHorizontalScroll({ enableWheel: true });
+
   return (
     <section id="categories" className="py-20 bg-[#F7F4EF]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,13 +37,19 @@ export const CategoryGrid: React.FC = () => {
           </div>
         </ScrollReveal>
 
-        {/* Desktop Grid / Mobile Horizontal Carousel */}
+        {/* Horizontally Scrollable Categories */}
         <ScrollReveal delay={150}>
-          <div className="flex sm:grid sm:grid-cols-3 md:grid-cols-5 gap-4 overflow-x-auto no-scrollbar scroll-snap-x pb-4 sm:pb-0 touch-pan-y">
+          <div
+            ref={containerRef}
+            {...dragProps}
+            className={`flex gap-4 overflow-x-auto no-scrollbar scroll-snap-x pb-4 pt-1 px-1 select-none ${
+              isDragging ? "cursor-grabbing" : "cursor-grab"
+            }`}
+          >
             {CATEGORIES.map((cat) => (
               <div
                 key={cat.id}
-                className="flex-none w-[170px] sm:w-auto scroll-snap-item group relative bg-[#FAFAF8] rounded-2xl p-4 border border-[#EAE8E4] text-center luxury-card cursor-pointer"
+                className="flex-none w-[180px] sm:w-[210px] scroll-snap-item group relative bg-[#FAFAF8] rounded-2xl p-4 border border-[#EAE8E4] text-center luxury-card cursor-pointer"
               >
                 <div className="relative w-full aspect-square mb-4 rounded-xl overflow-hidden bg-[#F7F4EF]">
                   <Image
